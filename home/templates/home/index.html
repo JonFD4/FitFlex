@@ -1,82 +1,21 @@
 {% extends 'base.html' %}
+{%load static%}
 
-{% block title %}FitFlex - Fitness Made Easy{% endblock %}
+{% block page_header %}
+div
+{% endblock %}
 
 {% block content %}
-<!-- Hero Section -->
 <div class="container-fluid bg-primary text-white text-center py-5">
     <div class="container">
         <h1 class="display-4">Welcome to FitFlex</h1>
         <p class="lead">Your journey to a healthier life starts here. Tailored fitness programs for all levels.</p>
-        <a class="btn btn-light btn-lg">Get Started</a>
+        <div class="my-5">
+            <h4>
+                <a href="#" class="btn btn-light btn-lg">Get Started</a>
+            </h4>
+        </div>
+       
     </div>
-</div>
-
-<!-- Programs Section -->
-<div class="container my-5">
-    <h2 class="text-center mb-4">Our Programs</h2>
-    <div class="row text-center">
-        <div class="col-md-4">
-            <div class="card shadow-sm">
-         
-                <div class="card-body">
-                    <h5 class="card-title">Weight Loss</h5>
-                    <p class="card-text">Personalized programs designed to help you lose weight effectively and healthily.</p>
-                    <a class="btn btn-primary">Learn More</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card shadow-sm">
-
-                <div class="card-body">
-                    <h5 class="card-title">Strength Training</h5>
-                    <p class="card-text">Build muscle and increase strength with our expert-designed programs.</p>
-                    <a class="btn btn-primary">Learn More</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card shadow-sm">
-             
-                <div class="card-body">
-                    <h5 class="card-title">Yoga & Flexibility</h5>
-                    <p class="card-text">Improve your flexibility, balance, and mental well-being through yoga.</p>
-                    <a class="btn btn-primary">Learn More</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Testimonials Section -->
-<div class="container my-5">
-    <h2 class="text-center mb-4">What Our Clients Say</h2>
-    <div class="row text-center">
-        <div class="col-md-4">
-            <div class="testimonial bg-light p-4 rounded shadow-sm">
-                <p>"FitFlex helped me lose 20 pounds in just 3 months. I feel healthier than ever!"</p>
-                <strong>- Jane D.</strong>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="testimonial bg-light p-4 rounded shadow-sm">
-                <p>"The strength training program is amazing. I’ve gained muscle and confidence."</p>
-                <strong>- Mike R.</strong>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="testimonial bg-light p-4 rounded shadow-sm">
-                <p>"Yoga at FitFlex changed my life. I feel more balanced, flexible, and calm."</p>
-                <strong>- Sarah L.</strong>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="container-fluid bg-light text-center py-5">
-    <h2 class="mb-4">Ready to Transform Your Life?</h2>
-    <a class="btn btn-primary btn-lg">Join FitFlex Today</a>
 </div>
 {% endblock %}
