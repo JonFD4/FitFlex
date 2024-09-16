@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
+import os
 
 from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,12 +24,12 @@ SECRET_KEY = 'django-insecure-m8ua^@3zj8umj)^q6@4zio4$mjsyoydr3qbjsan&8ff*0_lls$
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '8000-jonfd4-fitflex-te1no6xg7vo.ws-eu115.gitpod.io',
+   '8000-jonfd4-fitflex-2gm0pb1nm8l.ws-eu116.gitpod.io'
 ]
 
 # domain to trusted origins
 CSRF_TRUSTED_ORIGINS = [
-    'https://8000-jonfd4-fitflex-te1no6xg7vo.ws-eu115.gitpod.io',
+    'https://8000-jonfd4-fitflex-2gm0pb1nm8l.ws-eu116.gitpod.io',
 ]
 # Application definition
 
@@ -62,7 +63,7 @@ ROOT_URLCONF = 'fitflex.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
