@@ -1,23 +1,45 @@
+/* Custom Navbar Styles */
+.navbar {
+    background-color: #f8f9fa; 
+    border-bottom: 2px solid #e9ecef; 
+}
+
 .navbar-brand {
-    font-family: 'Arial', sans-serif;
-    font-weight: bold;
-    font-size: 1.5rem;
-    color: #007bff;
+    font-size: 1.8rem; 
 }
-.navbar-brand:hover {
-    color: #0056b3; /* Darker shade for hover effect */
+
+.navbar-nav .nav-item .nav-link {
+    font-weight: 500;
+    transition: color 0.3s ease; 
 }
-.nav-link {
+
+.navbar-nav .nav-item .nav-link:hover {
+    color: #007bff; 
+}
+
+.navbar .search-bar .form-control {
+    border-radius: 30px; 
+    border: 1px solid #ced4da; 
+}
+
+.navbar .btn-outline-primary {
+    border-radius: 30px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.navbar-nav .nav-item .badge {
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    border-radius: 20px; 
+}
+
+.navbar .user-name {
     font-size: 1rem;
+    font-weight: 400;
+    color: #6c757d; 
 }
-.user-name {
-    margin-left: 1rem;
-    font-weight: bold;
-    color: #333;
-}
-.nav-icon {
-    margin-right: 0.5rem;
-}
-.search-bar {
-    max-width: 300px;
+
+.navbar-toggler {
+    border: none; 
 }
