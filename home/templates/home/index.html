@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
-{%load static%}
-
+{% load static %}
 
 {% block content %}
 <div class="container-fluid bg-primary text-white text-center py-5">
@@ -9,10 +8,15 @@
         <p class="lead">Your journey to a healthier life starts here. Tailored fitness programs for all levels.</p>
         <div class="my-5">
             <h4>
-                <a href="#" class="btn btn-light btn-lg">Get Started</a>
+                {% if user.is_authenticated %}
+                    <!-- If the user is authenticated, show "Find Products" button -->
+                    <a href="#" class="btn btn-light btn-lg">Find Products</a>
+                {% else %}
+                    <!-- If the user is not authenticated, show "Get Started" button -->
+                    <a href="{% url 'account_signup' %}" class="btn btn-light btn-lg">Get Started</a>
+                {% endif %}
             </h4>
         </div>
-       
     </div>
 </div>
 {% endblock %}
