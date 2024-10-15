@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-<div class="container-fluid bg-primary text-white text-center py-5">
+<div class="container-fluid bg-primary text-white text-center py-5" role="banner">
     <div class="container">
         <h1 class="display-4">Welcome to FitFlex</h1>
         <p class="lead">Your journey to a healthier life starts here. Tailored fitness programs for all levels.</p>
@@ -10,10 +10,10 @@
             <h4>
                 {% if user.is_authenticated %}
                     <!-- If the user is authenticated, show "Find Products" button -->
-                    <a href="#" class="btn btn-light btn-lg">Find Products</a>
+                    <a href="#" class="btn btn-light btn-lg" aria-label="Find Products">Find Products</a>
                 {% else %}
                     <!-- If the user is not authenticated, show "Get Started" button -->
-                    <a href="{% url 'account_signup' %}" class="btn btn-light btn-lg">Get Started</a>
+                    <a href="{% url 'account_signup' %}" class="btn btn-light btn-lg" aria-label="Get Started">Get Started</a>
                 {% endif %}
             </h4>
         </div>
