@@ -1,0 +1,53 @@
+
+<footer class="footer bg-primary text-white py-4">
+    <div class="container text-center">
+        <div class="footer-links">
+            <h5>Quick Links</h5>
+            <a href="#about" class="text-white">About Us</a>
+            <span class="mx-2">|</span>
+            <a href="#faq" class="text-white">FAQ</a>
+            <span class="mx-2">|</span>
+            <a href="#consult" class="text-white">Request Consulting</a>
+        </div>
+
+        <div class="footer-info mt-3">
+            <p>Customer Service: <a href="tel:+44075567890" class="text-white">+444 (075) 567-890</a></p>
+            <p>Email: <a href="mailto:info@fitflex.com" class="text-white">info@fitflex.com</a></p>
+            <p>HO Address: 123 Fitness St, Healthy City, LN0 8FT</p>
+        </div>
+
+        <div class="footer-newsletter mt-3">
+            <h5>Subscribe to our Newsletter</h5>
+            <form action="#" method="post" class="newsletter-form">
+                {% csrf_token %}
+                <input type="email" name="email" placeholder="Your Email" required class="newsletter-input">
+                <button type="submit" class="btn">Subscribe</button>
+            </form>
+        </div>
+
+        <div class="footer-social mt-3">
+            <h5>Follow Us</h5>
+            <a href="https://facebook.com" class="text-white mx-2" aria-label="Facebook">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://twitter.com" class="text-white mx-2" aria-label="Twitter">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://instagram.com" class="text-white mx-2" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://linkedin.com" class="text-white mx-2" aria-label="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </div>
+
+        <div class="footer-copyright mt-3">
+            <p>&copy; 2024 FitFlex. All Rights Reserved.</p>
+            <p>
+                <a href="#terms" class="text-white">Terms of Service</a>
+                <span class="mx-2">|</span>
+                <a href="#privacy" class="text-white">Privacy Policy</a>
+            </p>
+        </div>
+    </div>
+</footer>
