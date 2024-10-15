@@ -32,9 +32,9 @@
                             <i class="fas fa-shopping-cart nav-icon"></i> Cart
                             <!-- Display grand_total if available -->
                             {% if grand_total %}
-                                <span class="badge bg-primary position-absolute top-0 start-100 translate-middle">{{ grand_total }}</span>
+                                <span class="badge bg-primary position-absolute top-0 start-100 translate-middle">{{ grand_total|floatformat:2 }}</span>
                             {% else %}
-                                <span class="badge bg-primary position-absolute top-0 start-100 translate-middle">0</span>
+                                <span class="badge bg-primary position-absolute top-0 start-100 translate-middle">£0.00</span>
                             {% endif %}
                         </a>
                     </li>
