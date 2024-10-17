@@ -27,9 +27,13 @@
             </select>
         </div>
         <div class="col-md-4 filter-item">
-            <h5 class="filter-title">Filter by Name:</h5>
-            <input type="text" class="form-input name-filter" id="nameFilter" placeholder="Search by name">
-        </div>
+            <h5 class="filter-title">Filter by Difficulty Level:</h5>
+            <select class="form-select difficulty-filter" id="difficultyFilter">
+                <option value="">Select Difficulty Level</option>
+                {% for difficulty in difficulty_levels %}
+                    <option value="{{ difficulty.id }}">{{ difficulty.name }}</option>
+                {% endfor %}
+            </select>
     </div>
 
     <!-- Product Cards -->
