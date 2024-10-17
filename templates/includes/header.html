@@ -25,9 +25,9 @@
                             <i class="fas fa-store nav-icon"></i> Shop
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="shopDropdown">
+                            <li><a class="dropdown-item" href="{% url 'all_products' %}?category=Gym">Gym Workouts</a></li>
+                            <li><a class="dropdown-item" href="{% url 'all_products' %}?category=Home">Home Workouts</a></li>
                             <li><a class="dropdown-item" href="{% url 'all_products' %}">All Workouts</a></li>
-                            <li><a class="dropdown-item" href="#">Gym Workouts</a></li>
-                            <li><a class="dropdown-item" href="#">Home Workouts</a></li>
                             <li><a class="dropdown-item" href="#">Consultations contact</a></li>
                         </ul>
                     </li>
@@ -47,7 +47,7 @@
                 </ul>
 
                 <!-- Search Bar -->
-                <form method="GET" action="" class="d-flex ms-3 search-bar">
+                <form method="GET" action="{%url 'all_products' %}" class="d-flex ms-3 search-bar">
                     <input class="form-control me-2" name="q" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-primary" type="submit">
                         <i class="fas fa-search"></i>
@@ -66,7 +66,7 @@
                             <span class="user-name text-muted">Hello, {{ user.username }}</span>
                         </li>
                         <!-- Logout Link -->
-                        <li class="nav-item">
+                        <li  class="nav-item">
                             <a class="nav-link text-dark" href="{% url 'account_logout' %}">
                                 <i class="fas fa-sign-out-alt nav-icon"></i> Logout
                             </a>
