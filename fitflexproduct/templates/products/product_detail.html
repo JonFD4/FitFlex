@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- Back Button -->
+    <div class="row">
+        <div class="col-12">
+            <a href="{% url 'all_products' %}" class="btn btn-primary mb-3">
+                <i class="fas fa-arrow-left"></i> Back to Products
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Product Image -->
+        <div class="col-md-6">
+            <img src="{{ product.image.url }}" class="img-fluid product-detail-image" alt="{{ product.name }}">
+        </div>
+
+        <!-- Product Details -->
+        <div class="col-md-6">
+            <div class="product-info">
+                <!-- Product Name -->
+                <h1 class="product-name">{{ product.name }}</h1>
+
+                <!-- Product Price -->
+                <h4 class="product-price">£{{ product.price }}</h4>
+
+                <!-- Add to Basket and Wishlist Buttons -->
+                <div class="product-actions mb-3">
+                    <a href="#" class="btn custom-button button-basket">
+                        <i class="fas fa-shopping-cart"></i> Add to Basket
+                    </a>
+                    <a href="#" class="btn custom-button button-wishlist">
+                        <i class="fas fa-heart"></i> Add to Wishlist
+                    </a>
+                </div>
+
+                <!-- Product Description -->
+                <p class="product-description">{{ product.description|safe }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

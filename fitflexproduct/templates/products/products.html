@@ -1,0 +1,69 @@
+
+{% extends "base.html" %}
+
+
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center page-title">Workout Programs</h1>
+
+    <!-- Filter Section -->
+    <div class="row mb-4 filter-section">
+        <div class="col-md-4 filter-item">
+            <h5 class="filter-title">Filter by Price:</h5>
+            <select class="form-select price-filter" id="priceFilter">
+                <option value="">Select Price Range</option>
+                <option value="low-to-high">Low to High</option>
+                <option value="high-to-low">High to Low</option>
+            </select>
+        </div>
+        <div class="col-md-4 filter-item">
+            <h5 class="filter-title">Filter by Category:</h5>
+            <select class="form-select category-filter" id="categoryFilter">
+                <option value="">Select Category</option>
+                {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-4 filter-item">
+            <h5 class="filter-title">Filter by Name:</h5>
+            <input type="text" class="form-input name-filter" id="nameFilter" placeholder="Search by name">
+        </div>
+    </div>
+
+    <!-- Product Cards -->
+    <div class="row product-cards">
+        {% for product in products %}
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <div class="card minimal-card">
+                    <img src="{{ product.image.url }}" class="card-img-top product-image" alt="{{ product.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="#" class="product-name">{{ product.name }}</a>
+                        </h5>
+                        <p class="card-text category-text">Category: {{ product.category.name }}</p>
+                        <p class="card-text price-text">Price: £{{ product.price }}</p>
+                    </div>
+                    <div class="overlay">
+                        <div class="overlay-content">
+                            <h5 class="overlay-product-name">{{ product.name }}</h5>
+                            <a href="#" class="custom-button button-basket">
+                                <i class="fas fa-shopping-cart"></i> Add to Basket
+                            </a>
+                            <a href="#" class="custom-button button-wishlist">
+                                <i class="fas fa-heart"></i>
+                            </a>
+                            <!-- Read More Button -->
+                            <a href="{% url 'product_detail' product.id %}" class="custom-button button-read-more">
+                                <i class="fas fa-info-circle"></i> Read More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    
+</div>
+{% endblock %}

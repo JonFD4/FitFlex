@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
+
 {% block content %}
 <section class="container-fluid bg-primary text-white text-center py-5 hero-section" role="banner">
     <div class="container">
@@ -10,7 +11,7 @@
             <h4>
                 {% if user.is_authenticated %}
                     <!-- If the user is authenticated, show "Find Products" button -->
-                    <a href="#" class="btn  btn-lg" aria-label="Find Routine">Find Your Routine</a>
+                    <a href="{% url 'all_products' %}" class="btn  btn-lg" aria-label="Find Routine">Find Your Routine</a>
                 {% else %}
                     <!-- If the user is not authenticated, show "Get Started" button -->
                     <a href="{% url 'account_signup' %}" class="btn  btn-lg" aria-label="Get Started">Get Started</a>
