@@ -46,7 +46,9 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'home',
-    'fitflexproduct'
+    'fitflexproduct',
+    'django_summernote',
+
 ]
 
 MIDDLEWARE = [

@@ -1,6 +1,7 @@
 
 from django.db import models
 from django.contrib.auth.models import User 
+from django_summernote.fields import SummernoteTextField
 
 
 class WorkoutCategory(models.Model):
@@ -35,7 +36,7 @@ class WorkoutProgram(models.Model):
     Represents an overall workout program for customers to purchase.
     """
     name = models.CharField(max_length=200) 
-    description = models.TextField()  
+    description = SummernoteTextField(blank=True, null=True) 
     category = models.ForeignKey(WorkoutCategory, on_delete=models.CASCADE)  # Gym or Home
     difficulty_level = models.ForeignKey(DifficultyLevel, on_delete=models.CASCADE) 
     duration_weeks = models.IntegerField()  

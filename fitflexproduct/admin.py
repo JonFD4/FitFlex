@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import WorkoutProgram, WorkoutCategory, DifficultyLevel, Review
+from django_summernote.admin import SummernoteModelAdmin  # Import SummernoteModelAdmin
 
 # Inline class to display reviews within the WorkoutProgram admin interface
 class ReviewInline(admin.TabularInline):
@@ -7,7 +8,7 @@ class ReviewInline(admin.TabularInline):
     extra = 0  
 
 # Admin class for managing workout programs
-class WorkoutProgramAdmin(admin.ModelAdmin):
+class WorkoutProgramAdmin(SummernoteModelAdmin): 
     inlines = (ReviewInline,)  # Attach the reviews inline to the WorkoutProgram admin page
 
     list_display = (
@@ -23,12 +24,15 @@ class WorkoutProgramAdmin(admin.ModelAdmin):
     search_fields = ('name', 'category__name', 'difficulty_level__name')  # Make category and difficulty searchable
     ordering = ('name',) 
 
+    summernote_fields = ('description',)  
+
 # Admin class for managing workout categories
 class WorkoutCategoryAdmin(admin.ModelAdmin):
     list_display = (
         'friendly_name', 
         'name',          
     )
+
 # Admin class for managing difficulty levels
 class DifficultyLevelAdmin(admin.ModelAdmin):
     list_display = (
