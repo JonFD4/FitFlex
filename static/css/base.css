@@ -447,3 +447,135 @@ body, p, a {
     border-color: #007bff;
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
+
+/*styling cart*/
+/* Overlay */
+.overlay-container {
+    position: relative;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+
+.cart-container {
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.basket-heading {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Keep Shopping Button */
+.keep-shopping-btn {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.keep-shopping-btn:hover {
+    text-decoration: underline;
+}
+
+.keep-shopping-btn i {
+    margin-right: 5px;
+}
+
+/* Product Item Styling */
+.cart-products {
+    margin-bottom: 20px;
+}
+
+.cart-item {
+    border-bottom: 1px solid #e9ecef;
+    padding: 20px 0;
+}
+
+.cart-item .product-img img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.cart-item .product-info {
+    flex: 1;
+    margin-left: 20px;
+}
+
+.cart-item .product-name {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.cart-item .product-price,
+.cart-item .total-price {
+    font-size: 1rem;
+    color: #333;
+}
+
+.cart-item .product-actions {
+    margin-left: 20px;
+}
+
+.cart-item .product-actions .btn {
+    font-size: 0.9rem;
+}
+
+/* Cart Summary */
+.cart-summary {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 30px; 
+}
+
+.cart-summary .summary-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.cart-summary .summary-total {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+
+/* Buttons for Keep Shopping and Checkout */
+/* Checkout Button */
+.cart-summary .btn-primary {
+    padding: 12px 30px;  
+    font-size: 1.1rem;   
+    border-radius: 50px;
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.cart-summary .btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-3px); 
+}
+
+
+@media (max-width: 768px) {
+    .cart-summary .btn-primary {
+        padding: 10px 20px;  
+        font-size: 1rem;     
+    }
+}
