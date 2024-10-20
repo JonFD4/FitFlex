@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.http import JsonResponse
 from fitflexproduct.models import WorkoutProgram as Product  
 # 
 def cart(request):
@@ -34,3 +35,26 @@ def add_to_cart(request, item_id):
     request.session.modified = True  
 
     return redirect(redirect_url)
+
+def remove_from_cart(request, item_id):
+    """Remove an item from the cart."""
+    try:
+        cart = request.session.get('cart', {})
+
+        
+        if str(item_id) in cart:
+           
+            del cart[str(item_id)]
+            messages.success(request, 'Item removed from your cart.')
+        else:
+            messages.error(request, 'Item not found in the cart.')
+
+       
+        request.session['cart'] = cart
+
+    except Exception as e:
+        messages.error(request, f'An error occurred while removing the item: {str(e)}')
+        return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+
+
+    return redirect('cart')
