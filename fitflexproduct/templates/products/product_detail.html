@@ -27,17 +27,28 @@
                 <h4 class="product-price">£{{ product.price }}</h4>
 
                 <!-- Add to Basket and Wishlist Buttons -->
-                <div class="product-actions mb-3">
-                    <a href="#" class="btn custom-button button-basket">
-                        <i class="fas fa-shopping-cart"></i> Add to Basket
-                    </a>
-                    <a href="#" class="btn custom-button button-wishlist">
-                        <i class="fas fa-heart"></i> Add to Wishlist
-                    </a>
+                <div class="mt-auto">
+                    <!-- Add to Basket Form -->
+                    <form action="a{% url 'add_to_cart' product.id %}" method="POST" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="custom-button button-basket">
+                            <i class="fas fa-shopping-cart"></i> Add to Basket
+                        </button>
+                    </form>
+
+                    <!-- Add to Wishlist Form -->
+                    <form action="#" method="POST" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="custom-button button-wishlist">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                        <input type="hidden" name="redirect_url" value="{{request.path}}">
+                    </form>
                 </div>
 
                 <!-- Product Description -->
                 <p class="product-description">{{ product.description|safe }}</p>
+                
             </div>
         </div>
     </div>
