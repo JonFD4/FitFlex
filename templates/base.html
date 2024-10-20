@@ -38,11 +38,13 @@
   <body>
 
     {% block page_header %}
-  
-    <header class="header-spacing">  
-      {% include 'includes/header.html' %}
-  </header>
     
+      {% include 'includes/header.html' %}
+  
+      <div class="alert alert-info text-center">
+        October Sale: Get 20% off your entire purchase!
+      </div>
+
     {% endblock %}
 
     {% if messages %}
@@ -52,13 +54,36 @@
     {% block content %}
     {% endblock %}
 
-    {% block page_footer%}
-    {% include 'includes/footer.html' %}
-  
-  {% endblock %}
+    {% block page_footer %}
+      {% include 'includes/footer.html' %}
+    {% endblock %}
+
+    <!-- Back to Top Button -->
+    <a href="#" id="backToTopBtn" class="btn btn-primary btn-lg rounded-circle position-fixed bottom-0 end-0 m-4" style="display: none;">
+        <i class="fas fa-arrow-up"></i>
+    </a>
 
     {% block postloadjs %}
     {% endblock %}
+
+ 
+    <script>
+      // Show the Back to Top button when scrolling down
+      window.onscroll = function() {
+          const backToTopBtn = document.getElementById("backToTopBtn");
+          if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+              backToTopBtn.style.display = "block";
+          } else {
+              backToTopBtn.style.display = "none";
+          }
+      };
+
+      // Smooth scroll back to the top when the button is clicked
+      document.getElementById("backToTopBtn").addEventListener("click", function(e) {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    </script>
 
   </body>
 </html>

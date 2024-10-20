@@ -17,9 +17,7 @@ body, p, a {
 }
 
 /* Custom Navbar Styles */
-.header-spacing {
-    margin-bottom: 70px; 
-}
+
 .navbar {
     background-color: #f8f9fa; 
     border-bottom: 2px solid #e9ecef; 
@@ -420,6 +418,9 @@ body, p, a {
     margin: 5px;
     text-decoration: none;
     color: white;
+    border: none; /* Remove border */
+    background-color: transparent; /* Transparent background for minimalism */
+    transition: background-color 0.3s; /* Smooth transition */
 }
 
 .button-basket {
@@ -432,6 +433,7 @@ body, p, a {
 
 .custom-button:hover {
     opacity: 0.9;
+    background-color: rgba(0, 0, 0, 0.1); /* Slight background on hover for visibility */
 }
 
 .form-select,
@@ -447,6 +449,7 @@ body, p, a {
     border-color: #007bff;
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
+
 
 /*styling cart*/
 /* Overlay */
