@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.contrib import messages
+from fitflexproduct.models import WorkoutProgram as Product
 
 def bag_view(request):
     """ A view to render bag contents"""
@@ -8,15 +10,17 @@ def bag_view(request):
 def add_to_bag(request, item_id):
     """ Add the specified product to the shopping bag """
 
+
+
+    product = Product.objects.get(pk=item_id)
     redirect_url = request.POST.get('redirect_url')
     bag = request.session.get('bag', [])
 
     # Convert item_id to integer before appending
     if int(item_id) not in bag:
         bag.append(int(item_id))
-
+        messages.success(request, f'{product.name} is in bag.')
     request.session['bag'] = bag
-    print(request.session['bag'])
     return redirect(redirect_url)
 
 def remove_from_bag(request, item_id):
