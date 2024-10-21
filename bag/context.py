@@ -58,6 +58,7 @@ def bag_contents(request):
         'discount_amount': discount_amount,  
         'discount_percent': discount if october_discount_applies else 0,  
         'october_discount_applies': october_discount_applies, 
+        'product_count':product_count
     }
     
     return context

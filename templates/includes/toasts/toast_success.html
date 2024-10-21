@@ -1,13 +1,54 @@
-<div class="toast custom-toast rounded-0 border-top-0" data-bs-autohide="false">
+<div class="toast custom-toast rounded-0 border-top-0" data-bs-autohide="false" style="border: 1px solid #28a745;">
     <div class="arrow-up arrow-success"></div>
     <div class="w-100 toast-capper bg-success"></div>
     <div class="toast-header bg-white text-dark">
-        <strong class="mr-auto">Success!</strong>
+        <strong class="mr-auto">🎉 Success!</strong>
         <button type="button" class="ml-2 mb-1 close text-dark" data-bs-dismiss="toast" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div class="toast-body bg-white">
-        {{ message }}        
+    <div class="toast-body bg-light">
+
+        <p class="text-success font-weight-bold">{{ message }}</p>
+
+        {% if bag_items and grand_total %}
+            <hr class="mt-1 mb-3">
+            <p class="logo-font bg-white text-black py-1">
+                <strong>Your Bag Summary ({{ product_count }} items)</strong>
+            </p>
+            <div class="bag-notification-wrapper" style="max-height: 150px; overflow-y: auto;">
+                {% for item in bag_items %}
+                    <div class="row mb-2 align-items-center">
+                        <!-- Product image -->
+                        <div class="col-3 my-1">
+                            <img class="w-100 rounded" src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                        </div>
+                        <!-- Product details -->
+                        <div class="col-9">
+                            <p class="my-0"><strong>{{ item.product.name }}</strong></p>
+                            <p class="my-0 small text-muted">Price: <span class="text-success font-weight-bold">${{ item.total_price|floatformat:2 }}</span></p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            
+            <div class="row">
+                <div class="col">
+                    <strong>
+                        <p class="mt-3 mb-1 text-black">
+                            Total with discount:
+                            <span class="float-right text-danger font-weight-bold">${{ grand_total|floatformat:2 }}</span>
+                        </p>
+                    </strong>
+
+                    <a href="{% url 'bag' %}" class="btn btn-dark btn-block rounded-0 mt-3">
+                        <span class="text-uppercase">View Your Bag 👜</span>
+                    </a>
+                </div>
+            </div>
+            {% elif action == 'remove' %}
+            <p class="text-danger font-weight-bold">Item removed from your bag.</p>
+        
+        {% endif %}
     </div>
 </div>

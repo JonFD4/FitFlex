@@ -589,7 +589,7 @@ body, p, a {
     }
 }
 
-/* ------------------------------- bootstrap toasts */
+/* bootstrap toasts */
 
 .message-container {
     position: fixed;
@@ -604,4 +604,22 @@ body, p, a {
 
 .toast-capper {
     height: 2px;
+}
+.bag-notification-wrapper {
+    max-height: 150px; 
+    overflow-y: auto; 
+    padding-right: 15px; 
+}
+
+.bag-notification-wrapper::-webkit-scrollbar {
+    width: 8px; 
+}
+
+.bag-notification-wrapper::-webkit-scrollbar-thumb {
+    background: #28a745; 
+    border-radius: 10px; 
+}
+.bag-notification-wrapper::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+    border-radius: 10px; 
 }
