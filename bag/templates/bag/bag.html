@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
 <div class="overlay-container">
     <div class="overlay"></div>
 
@@ -9,7 +8,7 @@
         <!-- Keep Shopping Button -->
         <div class="col-12 text-left mb-4">
             <a href="{% url 'all_products' %}" class="keep-shopping-btn">
-                <i class="fas fa-chevron-left"></i> Keep Shopping wishes
+                <i class="fas fa-chevron-left"></i> Keep Shopping 
             </a>
         </div>
 
@@ -37,11 +36,9 @@
                             <p class="product-price">£{{ item.product.price|floatformat:2 }}</p>
                         </div>
 
-                        
-
                         <!-- Remove Button -->
                         <div class="product-actions">
-                            <a href="{% url 'bag_remove' item.product.id %}" class="btn btn-outline-danger btn-sm">
+                            <a class="remove-item text-danger btn-sm" id="remove_{{ item.product.id }}">
                                 <i class="fas fa-trash"></i> Remove
                             </a>
                         </div>
@@ -55,7 +52,7 @@
             </div>
         </div>
 
-        <!-- bag Summary -->
+        <!-- Bag Summary -->
         <div class="row mt-5">
             <div class="col-12">
                 <div class="bag-summary p-4 shadow-sm rounded">
@@ -77,7 +74,7 @@
 
                     <!-- Checkout Button -->
                     <div class="d-flex justify-content-between mt-3">
-                        <a href="#" class="btn btn-primary btn-lg">Checkout</a> 
+                        <a href="#" class="btn btn-primary btn-lg"><i class="fas fa-lock"></i> Checkout</a> 
                     </div>
                 </div>
             </div>
@@ -85,4 +82,29 @@
     </div>
 </div>
 
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+<script type="text/javascript">
+    $(document).ready(function() {
+        // Remove item and reload on click
+        $('.remove-item').click(function(e) {
+            var csrfToken = "{{ csrf_token }}"; 
+            var itemId = $(this).attr('id').split('remove_')[1]; 
+            console.log(itemId);
+            var url = `/bag/remove/${parseInt(itemId)}/`; 
+            var data = { 'csrfmiddlewaretoken': csrfToken }; 
+    
+            $.post(url, data)
+                .done(function() {
+                    location.reload(); 
+                })
+                .fail(function() {
+                    console.error("Error removing item:", arguments); 
+                });
+        });
+    });
+    
+</script>
 {% endblock %}

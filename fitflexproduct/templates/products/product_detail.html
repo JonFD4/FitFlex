@@ -36,6 +36,7 @@
                     <button type="submit" class="custom-button button-basket">
                         <i class="fas fa-shopping-bag"></i> Add to Basket
                     </button>
+                    <input type="hidden" name="redirect_url" value="{{ request.path }}">
                 </form>
                 <!-- Add to Wishlist Form -->
                 <form action="#" method="POST" class="d-inline">
@@ -55,3 +56,6 @@
     </div>
 </div>
 {% endblock %}
+{%block postloadjs%}
+{{block.super}}
+{%endblock%}

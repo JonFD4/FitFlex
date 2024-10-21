@@ -9,53 +9,52 @@ def is_october(month):
     return month == 10  
 
 
-def cart_contents(request):
-    """Retrieve the cart contents, including total price, discount, and any applicable details."""
-    cart_items = []
+def bag_contents(request):
+    """Retrieve the bag contents, including total price, discount, and any applicable details."""
+    bag_items = []
     total_price = Decimal('0.00') 
     product_count = 0
     discount = Decimal('20.00') 
     current_date = timezone.now()
     current_month = current_date.month
 
-    
-    cart = request.session.get('cart', {})
 
-   
-    for item_id, item_data in cart.items():
-       
-        product = Product.objects.get(id=item_id)
-        
+    bag = request.session.get('bag', [])
 
+    # Loop through the bag, which is a list of item IDs
+    for item_id in bag:
+
+        product = get_object_or_404(Product, id=int(item_id))
         item_total_price = product.price  
 
-    
-        cart_items.append({
+        # Append item details to the bag items list
+        bag_items.append({
             'product': product,
             'total_price': item_total_price,
         })
 
-       
+
         total_price += item_total_price
         product_count += 1
 
 
     october_discount_applies = is_october(current_month)
 
-
+  
     if october_discount_applies:
         discount_amount = (discount / 100) * total_price
         discounted_total = total_price - discount_amount
     else:
-        discount_amount = 0
+        discount_amount = Decimal('0.00')
         discounted_total = total_price
 
     grand_total = total_price  
 
+
     context = {
-        'cart_items': cart_items, 
+        'bag_items': bag_items, 
         'total_price': discounted_total,  
-        'grand_total': grand_total,  
+        'grand_total': grand_total,      
         'discount_amount': discount_amount,  
         'discount_percent': discount if october_discount_applies else 0,  
         'october_discount_applies': october_discount_applies, 

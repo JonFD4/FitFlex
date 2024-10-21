@@ -537,7 +537,14 @@ body, p, a {
 .bag-item .product-actions .btn {
     font-size: 0.9rem;
 }
-
+.remove-item{
+    cursor: pointer;
+    text-decoration: none;
+}
+.remove-item:hover {
+    opacity: 0.9;
+    background-color: rgba(0, 0, 0, 0.1); 
+}
 /* bag Summary */
 .bag-summary {
     background-color: #f8f9fa;
