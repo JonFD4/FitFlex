@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="overlay-container">
+    <div class="overlay"></div>
+
+    <div class="container bag-container mt-5">
+        <!-- Keep Shopping Button -->
+        <div class="col-12 text-left mb-4">
+            <a href="{% url 'all_products' %}" class="keep-shopping-btn">
+                <i class="fas fa-chevron-left"></i> Keep Shopping wishes
+            </a>
+        </div>
+
+        <!-- Basket Heading -->
+        <div class="row mb-3 justify-content-center">
+            <div class="col-12 text-center">
+                <h2 class="basket-heading">Shopping Bag</h2>
+            </div>
+        </div>
+
+        <!-- Products in bag -->
+        <div class="row">
+            <div class="col-12">
+                <div class="bag-products">
+                    {% for item in bag_items %}
+                    <div class="bag-item d-flex justify-content-between align-items-center mb-4">
+                        <!-- Product Image -->
+                        <div class="product-img">
+                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="img-fluid">
+                        </div>
+
+                        <!-- Product Info -->
+                        <div class="product-info">
+                            <h5 class="product-name">{{ item.product.name }}</h5>
+                            <p class="product-price">£{{ item.product.price|floatformat:2 }}</p>
+                        </div>
+
+                        
+
+                        <!-- Remove Button -->
+                        <div class="product-actions">
+                            <a href="{% url 'bag_remove' item.product.id %}" class="btn btn-outline-danger btn-sm">
+                                <i class="fas fa-trash"></i> Remove
+                            </a>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="text-center">
+                        <p>Your shopping bag is empty.</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- bag Summary -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="bag-summary p-4 shadow-sm rounded">
+                    <h5 class="summary-title">Order Summary</h5>
+
+                    <!-- Discount Information if applicable -->
+                    {% if october_discount_applies %}
+                        <p class="summary-discount">Autumn-Time Discount ({{ discount_percent }}%): 
+                            -£{{ discount_amount|floatformat:2 }}</p>
+                    {% endif %}
+                    
+                    <!-- Total Price after Discount -->
+                    <p class="summary-total">Total (After Discount): 
+                        £{{ total_price|floatformat:2 }}</p>
+
+                    <!-- Grand Total (Before Discount) -->
+                    <p class="summary-grand-total">Total (Before Discount): 
+                        £{{ grand_total|floatformat:2 }}</p>
+
+                    <!-- Checkout Button -->
+                    <div class="d-flex justify-content-between mt-3">
+                        <a href="#" class="btn btn-primary btn-lg">Checkout</a> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
