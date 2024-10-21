@@ -32,10 +32,10 @@
                         </ul>
                     </li>
 
-                    <!-- Cart Link with Total -->
+                    <!-- bag Link with Total -->
                     <li class="nav-item">
-                        <a class="nav-link text-dark px-3 position-relative" href="{% url 'cart'%}">
-                            <i class="fas fa-shopping-cart nav-icon"></i> Cart
+                        <a class="nav-link text-dark px-3 position-relative" href="{% url 'bag'%}">
+                            <i class="fas fa-shopping-bag nav-icon"></i> bag
                             <!-- Display grand_total if available -->
                             {% if grand_total %}
                                 <span class="badge bg-primary position-absolute grand-total-elem">{{ grand_total|floatformat:2 }}</span>

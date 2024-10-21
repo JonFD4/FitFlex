@@ -41,13 +41,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'home',
     'fitflexproduct',
-    'cart',
+    'bag',
     'django_summernote',
 
 ]
@@ -80,12 +79,14 @@ TEMPLATES = [
                 'django.template.context_processors.request', # required by allauth
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'cart.context.cart_contents',
+                'bag.context.bag_contents',
             ],
         },
     },
 ]
 
+# settings.py
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
 AUTHENTICATION_BACKENDS = [
     
