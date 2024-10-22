@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'home',
     'fitflexproduct',
     'bag',
-    'checkout'
+    'checkout',
     'django_summernote',
 
 ]
