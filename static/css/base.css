@@ -1,69 +1,164 @@
+/* General Styling */
 html, body {
     height: 100%; 
     margin: 0; 
     display: flex; 
-    flex-direction: column; 
+    flex-direction: column;
+    font-family: 'Roboto', sans-serif;
 }
 
-/* Apply Anton to headings */
+/* Headings with Anton Font */
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Anton', sans-serif;
 }
 
-/* Apply Roboto to body text */
-body, p, a {
-    font-family: 'Roboto', sans-serif;
-    
-}
-
-/* Custom Navbar Styles */
-
+/* Navbar Styling */
 .navbar {
-    background-color: #f8f9fa; 
-    border-bottom: 2px solid #e9ecef; 
-
-    width: 100%; 
-    z-index: 1030; 
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    width: 100%;
+    z-index: 1030;
+    padding: 0.5rem 1rem;
 }
 
+/* Navbar Brand */
 .navbar-brand {
-    font-size: 1.8rem; 
+    font-size: 1.4rem; 
+    padding: 0.25rem 1rem;
 }
 
+/* Navbar Links */
 .navbar-nav .nav-item .nav-link {
-    font-weight: 500;
-    transition: color 0.3s ease; 
+    padding: 0.75rem;
+    transition: color 0.3s ease;
+    font-size: 1rem;
 }
 
-.navbar-nav .nav-item .nav-link:hover {
+
+.navbar-nav .nav-item .nav-link i {
+    font-size: 1.3rem; 
+    margin-right: 6px; 
+}
+
+
+.navbar-nav .nav-item .nav-link:hover i {
     color: #007bff; 
 }
 
-.navbar .search-bar .form-control {
-    border-radius: 30px; 
-    border: 1px solid #ced4da; 
+.navbar-nav .nav-item .nav-link:hover {
+    color: #007bff;
 }
+
+
+.navbar-nav .nav-item .grand-total-elem {
+    font-size: 1rem;
+    color: #333;
+    margin-left: 0.5rem;
+}
+
+.search-bar {
+    display: flex;
+    flex-grow: 1; 
+}
+
+
+.search-bar .search-input {
+    border: 1px solid #ced4da;
+    border-right: none; 
+    border-radius: 0;
+    width: 150px; 
+    max-width: 100%;
+}
+
+
+@media (min-width: 992px) {
+    .search-bar .search-input {
+        width: 350px; 
+    }
+}
+
+
+.search-bar .search-btn {
+    border: none; 
+    background: none; 
+    padding: 0 10px;
+    color: #007bff;
+    border-radius: 0; 
+}
+
+
+.search-bar .search-btn i {
+    font-size: 1.2rem;
+}
+
+.navbar-nav .nav-item {
+    margin-right: 10px;
+}
+
 
 .navbar .btn-outline-primary {
-    border-radius: 30px;
-    padding: 10px 15px;
+    border-radius: 0; 
+    padding: 0.5rem 1rem;
 }
+
 
 .navbar-nav .nav-item .badge {
-    font-size: 0.75rem;
-    padding: 4px 8px;
-    border-radius: 20px; 
+    font-size: 0.7rem;
+    padding: 3px 6px;
+    border-radius: 12px;
+    top: -10px;
+    right: -10px;
 }
 
-.navbar .user-name {
-    font-size: 1rem;
-    font-weight: 400;
-    color: #6c757d; 
-}
 
 .navbar-toggler {
-    border: none; 
+    border: none;
 }
+
+
+.navbar-nav .dropdown-menu {
+    right: 0;
+    left: auto;
+}
+
+.navbar-nav .dropdown-menu .dropdown-item {
+    font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+ 
+    .search-bar {
+        display: none; 
+    }
+
+
+    .navbar-nav .nav-item .search-toggle {
+        display: inline-block;
+    }
+
+
+    .search-toggle.open + .search-bar {
+        display: flex; 
+        width: 100%;
+    }
+
+    .navbar-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar-nav .nav-item {
+        margin-bottom: 10px; 
+    }
+
+   
+    .navbar-nav .nav-item .nav-link {
+        font-size: 0.9rem; 
+        padding: 0.5rem 0.75rem;
+    }
+}
+
 
 /* Style hero section */
 .hero-section {
