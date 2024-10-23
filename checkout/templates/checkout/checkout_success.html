@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
+{% endblock %}
+
+{% block page_header %}
+    <div class="container header-container text-center mt-5">
+        <h1 class="logo-font">Order Complete</h1>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="overlay"></div>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+           
+            <div class="col-12 order-summary">
+                <h2 class="order-summary-title">Thank You for Your Order!</h2>
+                <p class="order-confirmation">
+                    Your order has been successfully processed. Your order number is 
+                    <strong>{{ order.order_number }}</strong>. 
+                    We have sent a confirmation email to <strong>{{ order.email }}</strong> 
+                    with details of your order and links to download your purchased products.
+                </p>
+
+                <div class="order-summary-content mt-4">
+                    <h3>Order Summary</h3>
+                    <div class="order-items">
+                        {% for line_item in order.lineitems.all %}
+                            <div class="order-item d-flex justify-content-between align-items-center mb-3">
+                                <div class="item-info d-flex">
+                                    <div class="item-image">
+                                        <img src="{{ line_item.product.image.url }}" alt="{{ line_item.product.name }}" class="img-fluid" style="width: 60px; height: 60px;">
+                                    </div>
+                                    <div class="item-details ml-3">
+                                        <p class="item-name">{{ line_item.product.name }}</p>
+                                        <p class="item-price">£{{ line_item.product.price|floatformat:2 }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <p class="text-center">No products found in this order.</p>
+                        {% endfor %}
+                    </div>
+
+                    <hr>
+                    <div class="bag-summary">
+                        <p class="summary-total">Total Amount Paid: £{{ order.total_price|floatformat:2 }}</p>
+                    </div>
+                </div>
+
+
+                <div class="next-steps mt-4">
+                    <h4>What’s Next?</h4>
+                    <p>You can download your purchased products from the links provided in your confirmation email. If you have any issues, feel free to <a href="#">contact us</a>.</p>
+                    <a href="{% url 'all_products' %}" class="btn btn-primary mt-3">Continue Shopping</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+{% endblock %}
