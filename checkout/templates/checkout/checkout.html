@@ -15,118 +15,88 @@
 {% block content %}
     <div class="overlay"></div>
     <div class="container mt-5">
-        <div class="row">
-            
-            {% if user.is_authenticated %}
-                <!-- Order Summary Section -->
-                <div class="col-md-6 order-summary">
-                    <h2 class="order-summary-title">Order Summary</h2>
-                    <div class="order-summary-content">
-                        {% for item in bag_items %}
-                            <div class="order-item d-flex justify-content-between align-items-center mb-3">
-                                <div class="item-info d-flex">
-                                    <div class="item-image">
-                                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="img-fluid" style="width: 60px; height: 60px;">
-                                    </div>
-                                    <div class="item-details ml-3">
-                                        <p class="item-name text-primary">{{ item.product.name }}</p>
-                                        <p class="item-price">£{{ item.product.price|floatformat:2 }}</p>
-                                    </div>
+        <div class="row justify-content-center">
+            <!-- Order Summary Section -->
+            <div class="col-12 order-summary">
+                <h2 class="order-summary-title">Order Summary</h2>
+                <div class="order-summary-content">
+                    {% for item in bag_items %}
+                        <div class="order-item d-flex justify-content-between align-items-center mb-3">
+                            <div class="item-info d-flex">
+                                <div class="item-image">
+                                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="img-fluid" style="width: 60px; height: 60px;">
+                                </div>
+                                <div class="item-details ml-3">
+                                    <p class="item-name">{{ item.product.name }}</p>
+                                    <p class="item-price">£{{ item.product.price|floatformat:2 }}</p>
                                 </div>
                             </div>
-                        {% empty %}
-                            <p class="text-center">Your bag is empty.</p>
-                        {% endfor %}
-                        <hr>
-                        <div class="bag-summary p-4 shadow-sm rounded">
-                            <h5 class="summary-title">Order Summary</h5>
-        
-                           
-                            {% if october_discount_applies %}
-                                <p class="summary-discount">Autumn-Time Discount ({{ discount_percent }}%): 
-                                    -£{{ discount_amount|floatformat:2 }}</p>
-                            {% endif %}
-                            
-                            <!-- Total Price after Discount -->
-                            <p class="summary-total">Total (After Discount): 
-                                £{{ total_price|floatformat:2 }}</p>
-        
-                            <!-- Grand Total (Before Discount) -->
-                            <p class="summary-grand-total">Total (Before Discount): 
-                                £{{ grand_total|floatformat:2 }}</p>
-        
                         </div>
+                    {% empty %}
+                        <p class="text-center">Your bag is empty.</p>
+                    {% endfor %}
+                    <hr>
+                    <div class="bag-summary">
+                        {% if october_discount_applies %}
+                            <p class="summary-discount">Autumn-Time Discount ({{ discount_percent }}%): 
+                                -£{{ discount_amount|floatformat:2 }}</p>
+                        {% endif %}
+                        <p class="summary-total">Total (After Discount): 
+                            £{{ total_price|floatformat:2 }}</p>
+                        <p class="summary-grand-total">Total (Before Discount): 
+                            £{{ grand_total|floatformat:2 }}</p>
                     </div>
                 </div>
-                
-                <!-- User Information Section -->
-                <div class="col-md-6 mt-4">
-                    <h2 class="form-title">Your Information</h2>
-                    <p><strong>Full Name:</strong> {{ user.get_full_name }}</p>
-                    <p><strong>Email:</strong> {{ user.email }}</p>
-                    
-                    <form action="#" method="POST" id="payment-form">
-                        {% csrf_token %}
-                        
-                        <fieldset class="form-fieldset">
-                            <legend class="fieldset-label">Payment Information</legend>
-                            <div id="card-element">
-                                <!-- A Stripe Element will be inserted here. -->
-                            </div>
-                            <div id="card-errors" role="alert"></div>
-                        </fieldset>
+            </div>
 
-                        <div class="submit-button text-right mt-4">
-                            <button id="submit-button" class="btn btn-primary">
-                                Complete Order
-                            </button>
-                            <a href="{% url 'all_products' %}" class="btn btn-danger ml-2">Cancel Checkout</a>
-                        </div>
-                    </form>
-                </div>
-            {% else %}
-                <div class="col-md-12 text-center">
-                    <h2 class="alert alert-warning">Please log in to proceed with your order</h2>
-                    <p class="text-muted">You must be logged in to complete your purchase. Please <a href="{% url 'account_login' %}">log in</a> or <a href="{% url 'account_signup' %}">create an account</a>.</p>
-                </div>
-            {% endif %}
+            <!-- User Information Section -->
+            <div class="col-12 mt-4 user-info">
+                <h2 class="form-title">Your Information</h2>
+                <form action="#" method="POST" id="payment-form">
+                    {% csrf_token %}
+                    <fieldset class="form-fieldset">
+                        <legend class="fieldset-label">Contact Information</legend>
+                        <input type="text" name="full_name" class="form-control" 
+                            value="{% if user.is_authenticated %}{{ user.get_full_name }}{% endif %}" 
+                            placeholder="Full Name" required>
+                        <input type="email" name="email" class="form-control" 
+                            value="{% if user.is_authenticated %}{{ user.email }}{% endif %}" 
+                            placeholder="Email" required>
+                    </fieldset>
+                    <fieldset class="px-3">
+                        <legend class="fieldset-label">Payment</legend>
+                        <div class="mb-3" id="card-element"></div>
+                        <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
+                        <input type="hidden" value="{{ client_secret }}" name="client_secret">
+                    </fieldset>
 
-            <!-- If the user is NOT authenticated -->
-            {% if not user.is_authenticated %}
-                <div class="col-md-6 mt-4">
-                    <h2 class="form-title">Your Information</h2>
-                    <form action="#" method="POST" id="payment-form">
-                        {% csrf_token %}
-                        
-                        <fieldset class="form-fieldset">
-                            <legend class="fieldset-label">Contact Information</legend>
-                            {{ order_form.full_name|as_crispy_field }}
-                            {{ order_form.email|as_crispy_field }}
-                        </fieldset>
-
-                        <fieldset class="form-fieldset">
-                            <legend class="fieldset-label">Payment Information</legend>
-                            <div id="card-element">
-                                <!-- A Stripe Element will be inserted here. -->
-                            </div>
-                            <div id="card-errors" role="alert"></div>
-                        </fieldset>
-
-                        <div class="submit-button text-right mt-4">
-                            <button id="submit-button" class="btn btn-primary">
-                                Complete Order
-                            </button>
-                            <p class="small text-danger my-0">
-                                <span class="icon">
-                                    <i class="fas fa-exclamation-circle"></i>
-                                </span>
-                                <span>Your card will be charged <strong>${{ grand_total|floatformat:2 }}</strong></span>
-                            </p>
-                            <a href="{% url 'all_products' %}" class="btn btn-danger ml-2">Cancel Checkout</a>
-                        </div>
-                    </form>
-                </div>
-            {% endif %}
+                    <div class="submit-button text-right mt-4">
+                        <p class="small text-danger my-0">
+                            <span class="icon">
+                                <i class="fas fa-exclamation-circle"></i>
+                            </span>
+                            <span>Your card will be charged <strong>£{{ total_price|floatformat:2 }}</strong></span>
+                        </p>
+                        <button id="submit-button" class="btn btn-primary">
+                            Complete Order
+                        </button>
+                        <a href="{% url 'all_products' %}" class="btn btn-danger ml-2" onclick="return confirmCancel();">Cancel Checkout</a>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+{{ stripe_public_key|json_script:"id_stripe_public_key" }}
+{{ client_secret|json_script:"id_client_secret" }}
+<script src="{% static 'checkout/js/stripe_element.js' %}"></script>
+
+<script>
+    function confirmCancel() {
+        return confirm("Are you sure you want to cancel the checkout? Any unsaved changes will be lost.");
+    }
+</script>
 {% endblock %}
