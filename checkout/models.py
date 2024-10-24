@@ -3,6 +3,7 @@ from django.db import models
 from django.db.models import Sum
 from datetime import datetime
 from fitflexproduct.models import WorkoutProgram as Product
+from decimal import Decimal
 
 class Order(models.Model):
     full_name = models.CharField(max_length=50, null=False, blank=False)
@@ -26,8 +27,15 @@ class Order(models.Model):
         Update the grand_total as new items are added. 
         Since it's a digital product, no delivery cost is needed.
         """
-        self.order_total = self.lineitems.aggregate(Sum('lineitem_price'))['lineitem_price__sum'] or 0.00
-        self.grand_total = self.order_total
+        print(f"Calculated order total: {self.order_total}")
+        self.grand_total = self.lineitems.aggregate(Sum('lineitem_price'))['lineitem_price__sum'] or 0.00
+        current_date = datetime.now()
+        if current_date.month == 10:  
+            discount_percentage = 20  
+            discount_amount = (discount_percentage / Decimal('100.00')) * self.grand_total
+            self.order_total = self.grand_total - discount_amount
+        else:
+            self.order_total = self.grand_total
         self.save()  
 
     def save(self, *args, **kwargs):
