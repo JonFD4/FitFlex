@@ -1,15 +1,15 @@
 from django.contrib import admin
 from .models import WorkoutProgram, WorkoutCategory, DifficultyLevel, Review
-from django_summernote.admin import SummernoteModelAdmin  # Import SummernoteModelAdmin
+from django_summernote.admin import SummernoteModelAdmin 
 
-# Inline class to display reviews within the WorkoutProgram admin interface
+
 class ReviewInline(admin.TabularInline):
     model = Review
     extra = 0  
 
-# Admin class for managing workout programs
+
 class WorkoutProgramAdmin(SummernoteModelAdmin): 
-    inlines = (ReviewInline,)  # Attach the reviews inline to the WorkoutProgram admin page
+    inlines = (ReviewInline,)  
 
     list_display = (
         'name',
@@ -25,23 +25,25 @@ class WorkoutProgramAdmin(SummernoteModelAdmin):
     ordering = ('name',) 
 
     summernote_fields = ('description',)  
-
 # Admin class for managing workout categories
 class WorkoutCategoryAdmin(admin.ModelAdmin):
     list_display = (
         'friendly_name', 
         'name',          
     )
+    ordering = ('name',) 
 
 # Admin class for managing difficulty levels
 class DifficultyLevelAdmin(admin.ModelAdmin):
     list_display = (
         'name',
     )
+    ordering = ('name',)  
 
 # Admin class for managing reviews separately
 class ReviewAdmin(admin.ModelAdmin):
     readonly_fields = (
+        'workout_program',  
         'user',
         'rating',
         'comment',
@@ -56,10 +58,11 @@ class ReviewAdmin(admin.ModelAdmin):
         'created_at',
     )
 
-    search_fields = ('workout_program__name', 'user__username')  # Allows searching by workout program and user
-    list_filter = ('rating',)  # Allows filtering by rating
+    search_fields = ('workout_program__name', 'user__username')  
+    list_filter = ('rating',)  
+    ordering = ('-created_at',)  
 
-# Register your models with the admin site
+
 admin.site.register(WorkoutProgram, WorkoutProgramAdmin)
 admin.site.register(WorkoutCategory, WorkoutCategoryAdmin)
 admin.site.register(DifficultyLevel, DifficultyLevelAdmin)
