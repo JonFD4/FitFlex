@@ -10,6 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
+if os.path.exists("env.py"):
+  import env 
+  
+  DEBUG = True
+else:
+    DEBUG = False
+
 
 from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,8 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-m8ua^@3zj8umj)^q6@4zio4$mjsyoydr3qbjsan&8ff*0_lls$'
-DEBUG = True
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 ALLOWED_HOSTS = [
    '8000-jonfd4-fitflex-2gm0pb1nm8l.ws-eu116.gitpod.io'

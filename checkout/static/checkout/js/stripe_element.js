@@ -9,6 +9,7 @@
 var stripePublicKey = $('#id_stripe_public_key').text().slice(1, -1);
 var clientSecret = $('#id_client_secret').text().slice(1, -1);
 var stripe = Stripe(stripePublicKey);
+console.log("Stripe object:", stripe);
 var elements = stripe.elements();
 var style = {
     base: {
@@ -88,10 +89,8 @@ form.addEventListener('submit', function(ev) {
                 $('#submit-button').attr('disabled', false);
             } else {
                 if (result.paymentIntent.status === 'succeeded') {
-                    // Here I can trigger an action to deliver the digital product, 
-                    // e.g., send an email with download links, or redirect the user to a thank you page.
-                  
-                    form.submit(); // or redirect to a success page
+                   
+                     form.submit(); 
                 }
             }
         });

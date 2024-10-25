@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+
 from django.contrib import admin
 from .models import Order, OrderLineItem
 
@@ -19,7 +19,7 @@ class OrderAdmin(admin.ModelAdmin):
     """
     inlines = (OrderLineItemAdminInline,)  
     readonly_fields = ('order_number', 'date', 'order_total', 'grand_total',) 
-    fields = ('full_name', 'email', 'order_number', 'date', 'is_paid', 'order_total', 'grand_total')  
+    fields = ('full_name', 'email', 'order_number', 'date', 'is_paid', 'order_total', 'grand_total', 'original_bag', 'stripe_pid')  
     list_display = ('order_number', 'full_name', 'email', 'date', 'order_total', 'grand_total', 'is_paid') 
     ordering = ('-date',) 
 
