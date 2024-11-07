@@ -17,4 +17,5 @@ class UserQuestionAdmin(admin.ModelAdmin):
     list_filter = ('is_reviewed',) 
     ordering = ('-submitted_at',) 
 
-admin.site.register(FAQ,UserQuestion)
+admin.site.register(FAQ, FAQAdmin)
+admin.site.register(UserQuestion, UserQuestionAdmin)
