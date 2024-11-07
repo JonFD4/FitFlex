@@ -19,11 +19,13 @@
             <div class="bag-notification-wrapper" style="max-height: 150px; overflow-y: auto;">
                 {% for item in bag_items %}
                     <div class="row mb-2 align-items-center">
-                        <!-- Product image -->
                         <div class="col-3 my-1">
-                            <img class="w-100 rounded" src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                            {% if item.product.image %}
+                                <img class="w-100 rounded" src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                            {% else %}
+                                <img class="w-100 rounded" src="{{ MEDIA_URL}}noimage.png" alt="{{ item.product.name }}">
+                            {% endif %}
                         </div>
-                        <!-- Product details -->
                         <div class="col-9">
                             <p class="my-0"><strong>{{ item.product.name }}</strong></p>
                             <p class="my-0 small text-muted">Price: <span class="text-success font-weight-bold">${{ item.total_price|floatformat:2 }}</span></p>

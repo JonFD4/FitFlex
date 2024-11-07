@@ -7,6 +7,7 @@ html, body {
     font-family: 'Roboto', sans-serif;
 }
 
+
 /* Headings with Anton Font */
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Anton', sans-serif;
@@ -795,4 +796,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .faq-question.active + .faq-answer {
     display: block; 
+}
+
+/*All canecel buttons*/
+.btn-danger{
+    background-color: red;
 }

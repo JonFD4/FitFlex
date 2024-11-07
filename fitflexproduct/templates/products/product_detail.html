@@ -14,7 +14,11 @@
     <div class="row">
       
         <div class="col-md-6">
-            <img src="{{ product.image.url }}" class="img-fluid product-detail-image" alt="{{ product.name }}">
+            {% if product.image %}
+                 <img class="img-fluid product-detail-image" src="{{ product.image.url }}" alt="{{product.image.name }}">
+            {% else %}
+                <img class="img-fluid product-detail-image" src="{{ MEDIA_URL }}noimage.png" alt="{{product.image.name }}">
+            {% endif %}
         </div>
 
      
