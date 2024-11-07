@@ -1,6 +1,7 @@
 asgiref==3.8.1
 bleach==4.1.0
 crispy-bootstrap5==2024.10
+dj-database-url==2.3.0
 Django==5.1
 django-allauth==64.0.0
 django-countries==7.2.1
