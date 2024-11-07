@@ -1,0 +1,18 @@
+[
+    {
+        "model": "fitflexproduct.workoutcategory",
+        "pk": 1,
+        "fields": {
+            "name": "Gym Workouts",
+            "friendly_name": "Gym"
+        }
+    },
+    {
+        "model": "fitflexproduct.workoutcategory",
+        "pk": 2,
+        "fields": {
+            "name": "Home Workouts",
+            "friendly_name": "Home"
+        }
+    }
+]

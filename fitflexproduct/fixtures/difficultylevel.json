@@ -1,0 +1,24 @@
+[
+    {
+      "model": "fitflexproduct.difficultylevel",
+      "pk": 1,
+      "fields": {
+        "name": "Beginner"
+      }
+    },
+    {
+      "model": "fitflexproduct.difficultylevel",
+      "pk": 2,
+      "fields": {
+        "name": "Intermediate"
+      }
+    },
+    {
+      "model": "fitflexproduct.difficultylevel",
+      "pk": 3,
+      "fields": {
+        "name": "Advanced"
+      }
+    }
+  ]
+  

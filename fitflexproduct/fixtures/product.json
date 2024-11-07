@@ -1,0 +1,180 @@
+[
+   
+    {
+        "model": "fitflexproduct.workoutprogram",
+        "pk": 1,
+        "fields": {
+            "name": "Beginner Gym Strength Training",
+            "description": "<p>A great introductory weightlifting programme focusing on core strength and basic techniques. Ideal for those new to the gym, this programme covers foundational exercises to build strength and confidence in a gym setting.</p><ul><li>Improves foundational strength</li><li>Introduces basic weightlifting techniques</li><li>Enhances muscle tone</li><li>Prepares you for more advanced weightlifting routines</li><li>Includes video tutorials demonstrating each exercise</li></ul>",
+            "category": 1,
+            "difficulty_level": 1,
+            "duration_weeks": 4,
+            "price": "29.99",
+            "image": "gymBarbell.jpg",
+            "created_at": "2024-11-07T00:00:00Z"
+        }
+    },
+    {
+        "model": "fitflexproduct.workoutprogram",
+        "pk": 2,
+        "fields": {
+            "name": "Beginner Gym Full-Body Conditioning",
+            "description": "<p>This 4-week beginner-friendly programme focuses on full-body conditioning, incorporating fundamental strength and mobility exercises. Perfect for newcomers to the gym, this programme will improve flexibility and overall strength in a gradual, safe manner.</p><ul><li>Improves flexibility and mobility</li><li>Focuses on bodyweight and light weight exercises</li><li>Enhances core strength and overall fitness</li><li>Prepares for more advanced gym workouts</li><li>Comes with easy-to-follow video tutorials for every exercise</li></ul>",
+            "category": 1,
+            "difficulty_level": 1,
+            "duration_weeks": 4,
+            "price": "24.99",
+            "image": "fitnessgym.jpg",
+            "created_at": "2024-11-07T00:00:00Z"
+        }
+    },
+
+    {
+        "model": "fitflexproduct.workoutprogram",
+        "pk": 3,
+        "fields": {
+            "name": "Beginner Home Fitness",
+            "description": "<p>A simple 4-week programme to help you start working out from home with minimal equipment. Designed for beginners, this programme covers full-body exercises that can be done in any small space.</p><ul><li>Increases overall fitness and flexibility</li><li>Introduces full-body routines to improve mobility</li><li>Enhances endurance and strength</li><li>Minimal equipment needed</li><li>Video tutorials provided for safe and correct form</li></ul>",
+            "category": 2,
+            "difficulty_level": 1,
+            "duration_weeks": 4,
+            "price": "14.99",
+            "image": "fitnessgym.jpg",
+            "created_at": "2024-11-07T00:00:00Z"
+        }
+    },
+    {
+        "model": "fitflexproduct.workoutprogram",
+        "pk": 4,
+        "fields": {
+            "name": "Beginner Home Strength & Mobility",
+            "description": "<p>This 4-week beginner home workout programme is designed to improve overall strength and flexibility. With minimal equipment required, this programme is ideal for those just starting their fitness journey at home.</p><ul><li>Focuses on strength, mobility, and flexibility</li><li>Uses bodyweight exercises and light resistance</li><li>Improves balance and endurance</li><li>Prepares you for more intense home workouts</li><li>Includes instructional videos for every exercise</li></ul>",
+            "category": 2,
+            "difficulty_level": 1,
+            "duration_weeks": 4,
+            "price": "19.99",
+            "image": "homefitness.jpg",
+            "created_at": "2024-11-07T00:00:00Z"
+        }
+    },
+
+
+    {
+        "model": "fitflexproduct.workoutprogram",
+        "pk": 5,
+        "fields": {
+            "name": "Intermediate Gym Strength",
+            "description": "<p>Gain strength and build muscle in this comprehensive 6-week intermediate gym programme. With a focus on both upper and lower body strength, this programme is ideal for those looking to progress their gym routine.</p><ul><li>Enhances strength and power</li><li>Focuses on compound and isolation exercises</li><li>Improves muscle tone and endurance</li><li>Customisable progression for each exercise</li><li>Video tutorials provided for proper technique and form</li></ul>",
+            "category": 1,
+            "difficulty_level": 2,
+            "duration_weeks": 6,
+            "price": "54.99",
+            "image": "strongbody.jpg",
+            "created_at": "2024-11-07T00:00:00Z"
+        }
+    },
+    {
+        "model": "fitflexproduct.workoutprogram",
+        "pk": 6,
+        "fields": {
+            "name": "Intermediate Gym Muscle Building",
+            "description": "<p>This 6-week muscle-building programme for intermediate gym-goers focuses on hypertrophy training to help you gain lean muscle mass. Using a combination of compound and isolation exercises, this programme will push your limits and help you get stronger.</p><ul><li>Targets major muscle groups</li><li>Focuses on hypertrophy and muscle endurance</li><li>Offers a balanced combination of compound and isolation exercises</li><li>Progressive over 6 weeks</li><li>Comes with expert video tutorials</li></ul>",
+            "category": 1,
+            "difficulty_level": 2,
+            "duration_weeks": 6,
+            "price": "49.99",
+            "image": "strongbody.jpg",
+            "created_at": "2024-11-07T00:00:00Z"
+        }
+    },
+
+   
+    {
+        "model": "fitflexproduct.workoutprogram",
+        "pk": 7,
+        "fields": {
+            "name": "Intermediate Home Strength Build-Up",
+            "description": "<p>This intermediate home workout programme focuses on progressive strength training using minimal equipment. Tailored for users who are ready to move beyond basic exercises, this programme helps build endurance, strength, and muscle tone over six weeks.</p><ul><li>Enhances muscle tone and strength</li><li>Improves endurance and mobility</li><li>Reduces body fat through consistent, challenging workouts</li><li>Adaptable exercises that can scale with your progress</li><li>Includes video tutorials, guiding you on proper form and technique for each exercise</li></ul>",
+            "category": 2,
+            "difficulty_level": 2,
+            "duration_weeks": 6,
+            "price": "34.99",
+            "image": "hiitworkout.jpg",
+            "created_at": "2024-11-07T00:00:00Z"
+        }
+    },
+    {
+        "model": "fitflexproduct.workoutprogram",
+        "pk": 8,
+        "fields": {
+            "name": "Intermediate Home Strength & Endurance",
+            "description": "<p>This 6-week intermediate home workout programme is designed to improve both strength and endurance, using minimal equipment for full-body conditioning. Ideal for those who have already mastered the basics and want to move to the next level.</p><ul><li>Improves strength, endurance, and flexibility</li><li>Uses minimal equipment for full-body exercises</li><li>Focuses on bodyweight and dumbbell exercises</li><li>Prepares you for more advanced routines</li><li>Includes video tutorials for correct form</li></ul>",
+            "category": 2,
+            "difficulty_level": 2,
+            "duration_weeks": 6,
+            "price": "34.99",
+            "image": "hiitworkout.jpg",
+            "created_at": "2024-11-07T00:00:00Z"
+        }
+    },
+
+   
+    {
+        "model": "fitflexproduct.workoutprogram",
+        "pk": 9,
+        "fields": {
+            "name": "Advanced Gym Weightlifting",
+            "description": "<p>Push your limits with our advanced weightlifting programme designed for seasoned gym-goers. This 12-week programme includes complex lifting techniques to maximise strength and muscle growth.</p><ul><li>Targets all major muscle groups</li><li>Focuses on advanced compound and isolation exercises</li><li>Enhances strength, hypertrophy, and endurance</li><li>Structured in a periodised format for continuous progression</li><li>Includes advanced video tutorials for safe and effective execution</li></ul>",
+            "category": 1,
+            "difficulty_level": 3,
+            "duration_weeks": 12,
+            "price": "79.99",
+            "image": "gymBarbell.jpg",
+            "created_at": "2024-11-07T00:00:00Z"
+        }
+    },
+    {
+        "model": "fitflexproduct.workoutprogram",
+        "pk": 10,
+        "fields": {
+            "name": "Advanced Gym Muscle Definition",
+            "description": "<p>This advanced 12-week gym workout focuses on cutting fat and defining muscle tone. Using high-intensity compound exercises and weightlifting techniques, you'll achieve maximum muscle definition and strength.</p><ul><li>Combines heavy lifting with high-repetition exercises</li><li>Focuses on sculpting and defining muscles</li><li>Maximises fat loss and muscle gain</li><li>Incorporates progressive overload for continuous growth</li><li>Video tutorials guide every exercise</li></ul>",
+            "category": 1,
+            "difficulty_level": 3,
+            "duration_weeks": 12,
+            "price": "89.99",
+            "image": "strongbody.jpg",
+            "created_at": "2024-11-07T00:00:00Z"
+        }
+    },
+
+ 
+    {
+        "model": "fitflexproduct.workoutprogram",
+        "pk": 11,
+        "fields": {
+            "name": "Advanced Home HIIT Challenge",
+            "description": "<p>This high-intensity, equipment-free HIIT programme for advanced users brings dynamic, powerful workouts that will push your limits. Designed to maximise results in minimal time, the Advanced HIIT Challenge incorporates explosive exercises to help burn fat and build strength.</p><ul><li>Increases cardiovascular health and muscle endurance</li><li>Improves agility and reaction time through quick, varied movements</li><li>Boosts metabolism, keeping calorie burn high even after workouts</li><li>Requires no equipment, making it adaptable for any space</li><li>Comes with detailed video tutorials for every exercise, so you can safely perform each move with expert guidance</li></ul>",
+            "category": 2,
+            "difficulty_level": 3,
+            "duration_weeks": 8,
+            "price": "44.99",
+            "image": "hiitworkout.jpg",
+            "created_at": "2024-11-07T00:00:00Z"
+        }
+    },
+    {
+        "model": "fitflexproduct.workoutprogram",
+        "pk": 12,
+        "fields": {
+            "name": "Advanced Home Strength & Conditioning",
+            "description": "<p>This advanced 8-week home workout programme is designed to build strength, power, and endurance using bodyweight exercises and minimal equipment. Push your limits and achieve significant improvements in overall fitness.</p><ul><li>Advanced exercises to build strength and endurance</li><li>Uses minimal equipment for maximal results</li><li>Incorporates full-body conditioning</li><li>Boosts muscle tone and fat burning</li><li>Video tutorials ensure proper form and technique</li></ul>",
+            "category": 2,
+            "difficulty_level": 3,
+            "duration_weeks": 8,
+            "price": "39.99",
+            "image": "homefitness.jpg",
+            "created_at": "2024-11-07T00:00:00Z"
+        }
+    }
+]
