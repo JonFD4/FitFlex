@@ -1,0 +1,12 @@
+.container form {
+    padding: 20px;
+    border: none;
+    border-radius: 8px;
+}
+
+.custom-textarea {
+    min-height: 150px;  
+    width: 100%;        
+    resize: vertical;   
+    font-size: 1.1em;  
+}
