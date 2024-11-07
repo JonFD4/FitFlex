@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container mt-5">
 
-    <div class="row">
+    <div class="row d-flex">
         <div class="col-12">
             <a href="{% url 'all_products' %}" class="btn btn-primary mb-3">
                 <i class="fas fa-arrow-left"></i> Back to Products
@@ -36,7 +36,6 @@
                     <input type="hidden" name="redirect_url" value="{{ request.path }}">
                 </form>
 
-            
                 <form action="#" method="POST" class="d-inline">
                     {% csrf_token %}
                     <input type="hidden" name="redirect_url" value="{{ request.path }}">
@@ -44,6 +43,15 @@
                         <i class="fas fa-heart"></i>
                     </button>
                 </form>
+
+                <div class="col-12">
+                    {% if request.user.is_superuser %}
+                       <small class="ml-3">
+                           <a href="{% url 'edit_product' product.id %}">Edit</a> | 
+                           <a class="text-danger" href="{% url 'delete_product' product.id %}">Delete</a>
+                       </small>
+                   {% endif %}
+                   </div>
             </div>
 
            
@@ -103,9 +111,11 @@
                 </div>
                 <button type="submit" class="btn btn-success">Submit Review</button>
             </form>
+            
         </div>
     </div>
 </div>
+
 {% endblock %}
 
 {% block postloadjs %}
