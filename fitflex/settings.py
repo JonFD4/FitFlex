@@ -13,9 +13,12 @@ import os
 if os.path.exists("env.py"):
   import env 
   
-  DEBUG = True
-else:
-    DEBUG = False
+#   DEBUG = True
+  
+# else:
+#     DEBUG = False
+
+DEBUG = True
 
 
 from pathlib import Path
@@ -27,15 +30,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'default-fallback-key')
 
 ALLOWED_HOSTS = [
-   '8000-jonfd4-fitflex-2gm0pb1nm8l.ws-eu116.gitpod.io'
-]
+    'localhost', 
+    '127.0.0.1',
+   '8000-jonfd4-fitflex-mnth6whnvho.ws.codeinstitute-ide.net',
+   ]
 
 # domain to trusted origins
 CSRF_TRUSTED_ORIGINS = [
-    'https://8000-jonfd4-fitflex-2gm0pb1nm8l.ws-eu116.gitpod.io',
+    'https://8000-jonfd4-fitflex-mnth6whnvho.ws.codeinstitute-ide.net', 
 ]
 # Application definition
 
@@ -57,6 +62,7 @@ INSTALLED_APPS = [
     'django_summernote',
     'crispy_forms',
     'crispy_bootstrap5', 
+    'FAQ',
 
 
 ]
@@ -134,8 +140,12 @@ WSGI_APPLICATION = 'fitflex.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.getenv('DB_NAME'), 
+        'USER': os.getenv('DB_USER'),  
+        'PASSWORD': os.getenv('DB_PASSWORD'), 
+        'HOST': os.getenv('DB_HOST', 'localhost'),  
+        'PORT': os.getenv('DB_PORT', '5432')  
     }
 }
 
