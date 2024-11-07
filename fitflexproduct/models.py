@@ -26,7 +26,7 @@ class DifficultyLevel(models.Model):
     """
     Represents the level of difficulty for a workout program.
     """
-    name = models.CharField(max_length=50)  # Beginner, Intermediate, Advanced
+    name = models.CharField(max_length=50)  
 
     def __str__(self):
         return self.name
