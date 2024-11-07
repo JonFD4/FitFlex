@@ -5,38 +5,43 @@
     <div class="overlay"></div>
 
     <div class="container bag-container mt-5">
-        <!-- Keep Shopping Button -->
+       
         <div class="col-12 text-left mb-4">
             <a href="{% url 'all_products' %}" class="keep-shopping-btn">
                 <i class="fas fa-chevron-left"></i> Keep Shopping 
             </a>
         </div>
 
-        <!-- Basket Heading -->
+    
         <div class="row mb-3 justify-content-center">
             <div class="col-12 text-center">
                 <h2 class="basket-heading">Shopping bag</h2>
             </div>
         </div>
 
-        <!-- Products in bag -->
+       
         <div class="row">
             <div class="col-12">
                 <div class="bag-products">
                     {% for item in bag_items %}
                     <div class="bag-item d-flex justify-content-between align-items-center mb-4">
-                        <!-- Product Image -->
-                        <div class="product-img">
-                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="img-fluid">
-                        </div>
+                       
+                        <div class="row mb-2 align-items-center">
+                            <div class="col-3 my-1">
+                                {% if item.product.image %}
+                                    <img class="img-fluid rounded" src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                                {% else %}
+                                    <img class="img-fluid rounded" src="{{ MEDIA_URL}}noimage.png" alt="{{ item.product.name }}">
+                                {% endif %}
+                            </div>
 
-                        <!-- Product Info -->
+                     
                         <div class="product-info">
                             <h5 class="product-name">{{ item.product.name }}</h5>
                             <p class="product-price">£{{ item.product.price|floatformat:2 }}</p>
                         </div>
 
-                        <!-- Remove Button -->
+                        
                         <div class="product-actions">
                             <a class="remove-item text-danger btn-sm" id="remove_{{ item.product.id }}">
                                 <i class="fas fa-trash"></i> Remove
@@ -52,27 +57,20 @@
             </div>
         </div>
 
-        <!-- bag Summary -->
+      
         <div class="row mt-5">
             <div class="col-12">
                 <div class="bag-summary p-4 shadow-sm rounded">
                     <h5 class="summary-title">Order Summary</h5>
-
-                    <!-- Discount Information if applicable -->
                     {% if october_discount_applies %}
                         <p class="summary-discount">Autumn-Time Discount ({{ discount_percent }}%): 
                             -£{{ discount_amount|floatformat:2 }}</p>
                     {% endif %}
-                    
-                    <!-- Total Price after Discount -->
                     <p class="summary-total">Total (After Discount): 
                         £{{ total_price|floatformat:2 }}</p>
-
-                    <!-- Grand Total (Before Discount) -->
                     <p class="summary-grand-total">Total (Before Discount): 
                         £{{ grand_total|floatformat:2 }}</p>
 
-                    <!-- Checkout Button -->
                     <div class="d-flex justify-content-between mt-3">
                         <a href="{% url 'checkout'%}" class="btn btn-primary btn-lg"><i class="fas fa-lock"></i> Checkout</a> 
                     </div>
@@ -88,7 +86,7 @@
 {{ block.super }}
 <script type="text/javascript">
     $(document).ready(function() {
-        // Remove item and reload on click
+     
         $('.remove-item').click(function(e) {
             var csrfToken = "{{ csrf_token }}"; 
             var itemId = $(this).attr('id').split('remove_')[1]; 

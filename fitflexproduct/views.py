@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.db.models import Q, Avg  
 from django.contrib.auth.decorators import login_required
 from .models import WorkoutProgram as Product, WorkoutCategory as Category, DifficultyLevel, Review
-from .forms import ReviewForm  
+from .forms import ReviewForm , ProductForm
 
 def all_products(request):
     """
@@ -24,7 +24,6 @@ def all_products(request):
         if 'category' in request.GET:
             category_friendly_name = request.GET.get('category')
             if category_friendly_name:
-              
                 selected_category = get_object_or_404(Category, friendly_name__iexact=category_friendly_name)
                 products = products.filter(category=selected_category)
 
@@ -114,3 +113,23 @@ def submit_review(request, product_id):
         return redirect('product_detail', product_id=product_id)
 
     return redirect('product_detail', product_id=product_id)
+
+# Admin views for managing products
+def add_product(request):
+    """ Add a product to the store """
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            product = form.save()
+            messages.success(request, 'Successfully added product!')
+            return redirect(reverse('product_detail', args=[product.id]))
+        else:
+            messages.error(request, 'Failed to add product. Please ensure the form is valid.')
+    else:
+        form = ProductForm()
+        
+    template = 'products/add_product.html'
+    context = {
+        'form': form,
+    }
+    return render(request, template, context)
