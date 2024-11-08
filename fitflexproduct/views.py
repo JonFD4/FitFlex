@@ -114,6 +114,49 @@ def submit_review(request, product_id):
 
     return redirect('product_detail', product_id=product_id)
 
+@login_required
+def edit_review(request, review_id):
+    """
+    Allows a user to edit their own review.
+    """
+    review = get_object_or_404(Review, pk=review_id)
+    if request.user != review.user :
+        messages.error(request, "You do not have permission to edit this review.")
+        return redirect('product_detail', product_id=review.workout_program.id)
+
+    if request.method == 'POST':
+        form = ReviewForm(request.POST, instance=review)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your review has been updated!')
+            return redirect('product_detail', product_id=review.workout_program.id)
+        else:
+            messages.error(request, 'Failed to update the review. Please ensure the form is valid.')
+    else:
+        form = ReviewForm(instance=review)
+
+    context = {
+        'form': form,
+        'review': review,
+    }
+    return render(request, 'products/edit_review.html', context)
+
+
+@login_required
+def delete_review(request, review_id):
+    """
+    Allows a user or admin to delete a review.
+    """
+    review = get_object_or_404(Review, pk=review_id)
+    if request.user != review.user and not request.user.is_superuser:
+        messages.error(request, "You do not have permission to delete this review.")
+        return redirect('product_detail', product_id=review.workout_program.id)
+    
+    review.delete()
+    messages.success(request, 'Review deleted successfully.')
+    return redirect('product_detail', product_id=review.workout_program.id)
+
+
 # Admin views for managing products
 def add_product(request):
     """ View to allow admin to add product to store """
