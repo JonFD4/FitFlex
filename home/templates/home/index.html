@@ -10,10 +10,8 @@
         <div class="my-5">
             <h4>
                 {% if user.is_authenticated %}
-                    <!-- If the user is authenticated, show "Find Products" button -->
                     <a href="{% url 'all_products' %}" class="btn  btn-lg" aria-label="Find Routine">Find Your Routine</a>
                 {% else %}
-                    <!-- If the user is not authenticated, show "Get Started" button -->
                     <a href="{% url 'account_signup' %}" class="btn  btn-lg" aria-label="Get Started">Get Started</a>
                 {% endif %}
             </h4>
@@ -21,7 +19,7 @@
     </div>
 </section>
 
-<section class="about-section py-5">
+<section id="about-section" class="about-section py-5">
     <div class="container text-center">
         <h2 class="display-4">About FitFlex</h2>
         <p class="lead">At FitFlex, we believe that everyone deserves to lead a healthy and fulfilling life. Our mission is to empower individuals of all fitness levels to achieve their personal health goals through tailored fitness programs, expert guidance, and a supportive community.</p>
@@ -30,29 +28,34 @@
     </div>
 </section>
 
-<section class="contact-section py-5">
+<section id="contact-section" class="contact-section py-5">
     <div class="container text-center">
         <h2 class="display-4">Contact Us</h2>
         <p class="lead">We'd love to hear from you! Please fill out the form below, and we'll get back to you as soon as possible.</p>
-        
-        <form action="#" method="post" class="contact-form">
+
+        <form action="{% url 'contact' %}" method="post" class="contact-form mt-4">
             {% csrf_token %}
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label for="fullName">Full Name</label>
                 <input type="text" id="fullName" name="full_name" class="form-control" placeholder="Your Full Name" required>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" class="form-control" placeholder="Your Email" required>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
+                <label for="category">Category</label>
+                <select id="category" name="category" class="form-control" required>
+                    <option value="general">General</option>
+                    <option value="consultation">Consultation</option>
+                </select>
+            </div>
+            <div class="form-group mb-4">
                 <label for="message">Message</label>
                 <textarea id="message" name="message" class="form-control" rows="5" placeholder="Your Message" required></textarea>
             </div>
-            <button type="submit" class="btn">Send Message</button>
+            <button type="submit" class="btn btn-primary">Send Message</button>
         </form>
     </div>
 </section>
-
-
-{% endblock %}
+{%endblock%}

@@ -2,11 +2,11 @@
     <div class="container text-center">
         <div class="footer-links">
             <h5>Quick Links</h5>
-            <a href="#about" class="text-white">About Us</a>
+            <a href="{% url 'home' %}#about-section" class="text-white">About Us</a>
             <span class="mx-2">|</span>
             <a href="{% url 'faq_search' %}" class="text-white">FAQ</a> 
             <span class="mx-2">|</span>
-            <a href="#consult" class="text-white">Request Consulting</a>
+            <a href="{% url 'home' %}#contact-section" class="text-white">Request Consulting</a>
         </div>
 
         <div class="footer-info mt-3">
@@ -17,7 +17,7 @@
 
         <div class="footer-newsletter mt-3">
             <h5>Subscribe to our Newsletter</h5>
-            <form action="#" method="post" class="newsletter-form">
+            <form action="{% url 'newsletter_subscribe' %}" method="post" class="newsletter-form">
                 {% csrf_token %}
                 <input type="email" name="email" placeholder="Your Email" required class="newsletter-input">
                 <button type="submit" class="btn">Subscribe</button>
@@ -43,9 +43,9 @@
         <div class="footer-copyright mt-3">
             <p>&copy; 2024 FitFlex. All Rights Reserved.</p>
             <p>
-                <a href="#terms" class="text-white">Terms of Service</a>
+                <a href="#" class="text-white">Terms of Service</a>
                 <span class="mx-2">|</span>
-                <a href="#privacy" class="text-white">Privacy Policy</a>
+                <a href="#" class="text-white">Privacy Policy</a>
             </p>
         </div>
     </div>
