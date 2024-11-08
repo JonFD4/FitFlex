@@ -5,7 +5,10 @@ from datetime import datetime
 from fitflexproduct.models import WorkoutProgram as Product
 from decimal import Decimal
 
+from user_profiles.models import UserProfile
+
 class Order(models.Model):
+    user_profile = models.ForeignKey(UserProfile, on_delete=models.SET_NULL, null=True, blank=True, related_name='orders')
     full_name = models.CharField(max_length=50, null=False, blank=False)
     email = models.EmailField(max_length=254, null=False, blank=False)
     order_total = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
