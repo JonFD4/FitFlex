@@ -38,6 +38,8 @@ ALLOWED_HOSTS = [
     'localhost', 
     '127.0.0.1',
    '8000-jonfd4-fitflex-mnth6whnvho.ws.codeinstitute-ide.net',
+   'https://fitflexapp-e29fb3bd789f.herokuapp.com/',
+   'https://cli-auth.heroku.com/auth/cli/browser/bcf0c241-4da2-483c-833a-91212cb1645f'
    ]
 
 # domain to trusted origins
