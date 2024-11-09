@@ -23,28 +23,22 @@
                 {% endelement %}
             </div>
 
-            {% if not SOCIALACCOUNT_ONLY %}
-                {% url 'account_signup' as action_url %}
-                <div class="card shadow-xl rounded-4 p-4">
-                    <div class="card-body">
-                        <form method="post" action="{{ action_url }}">
-                            {% csrf_token %}
-                            {% for field in form %}
-                                <div class="form-group mb-3">
-                                    {{ field.label_tag }}
-                                    {{ field }}
-                                </div>
-                            {% endfor %}
-                            {{ redirect_field }}
-                            <div class="d-grid gap-2 mt-4">
-                                <button type="submit" class="btn btn-primary w-100">
-                                    {% trans "Sign Up" %}
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+            <div class="card shadow-xl rounded-4 p-4">
+                <div class="card-body">
+                    <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        {% if redirect_field_value %}
+                            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                        {% endif %}
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary w-100">
+                                {% trans "Sign Up" %}
+                            </button>
+                        </div>
+                    </form>
                 </div>
-            {% endif %}
+            </div>
 
             {% if SOCIALACCOUNT_ENABLED %}
                 <hr class="my-4">
