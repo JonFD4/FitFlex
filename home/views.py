@@ -8,8 +8,8 @@ def index(request):
 
 def contact_view(request):
     if request.method == 'POST':
-      
-        full_name = request.POST.get('full_name')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
         email = request.POST.get('email')
         category = request.POST.get('category')
         message = request.POST.get('message')

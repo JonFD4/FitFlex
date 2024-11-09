@@ -25,7 +25,8 @@ class StripeWH_Handler:
         pid = intent.id
         bag = intent.metadata.bag
         email = intent.metadata.email
-        full_name = intent.metadata.full_name  # Ensure this exists
+        first_name = intent.metadata.first_name  
+        last_name = intent.metadata.last_name  
         save_info = intent.metadata.save_info
         
         # Retrieve the latest charge to access billing details and amount
