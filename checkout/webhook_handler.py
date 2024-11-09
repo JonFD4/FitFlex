@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from .models import Order, OrderLineItem
 from fitflexproduct.models import WorkoutProgram as Product
-from django.conf import settings
+from user_profiles.models import UserProfile  
 import stripe
 import json
 import time
@@ -11,90 +11,103 @@ class StripeWH_Handler:
 
     def __init__(self, request):
         self.request = request
-    
+
     def handle_event(self, event):
-        """Handle a generic/unknown/unexpected webhook event"""
         return HttpResponse(
             content=f'Unhandled webhook received: {event["type"]}',
-            status=200
-        )
+            status=200)
 
     def handle_payment_intent_succeeded(self, event):
         """Handle the payment_intent.succeeded webhook from Stripe"""
         intent = event.data.object
         pid = intent.id
         bag = intent.metadata.bag
-        email = intent.metadata.email
+        save_info = intent.metadata.save_info
+
         first_name = intent.metadata.first_name  
         last_name = intent.metadata.last_name  
-        save_info = intent.metadata.save_info
-        
-        # Retrieve the latest charge to access billing details and amount
-        try:
-            stripe_charge = stripe.Charge.retrieve(intent.latest_charge)
-        except stripe.error.StripeError as e:
-            # Handle the error and log it
-            print(f"Stripe error: {e}")
-            return HttpResponse(status=500)
+        email = intent.metadata.email
+        full_name = f"{first_name} {last_name}"
 
-        billing_details = stripe_charge.billing_details
-        grand_total = round(stripe_charge.amount / 100, 2)  
+        billing_details = intent.charges.data[0].billing_details
+        grand_total = round(intent.charges.data[0].amount / 100, 2)
 
-        # Check if the order already exists
-        try:
-            order = Order.objects.get(
-                email__iexact=email,
-                stripe_pid=pid,
-                full_name__iexact=full_name,
-                grand_total=grand_total,
-                original_bag=bag,
-            )
+        profile = None
+        username = intent.metadata.username
+        if username != 'AnonymousUser':
+            profile = UserProfile.objects.get(user__username=username)
+            if save_info:
+                profile.default_first_name = first_name
+                profile.default_last_name = last_name
+                profile.email = email
+                profile.save()
+
+        order_exists = False
+        attempt = 1
+        while attempt <= 5:
+            try:
+                order = Order.objects.get(
+                    full_name__iexact=full_name,
+                    email__iexact=email,
+                    grand_total=grand_total,
+                    original_bag=bag,
+                    stripe_pid=pid,
+                )
+                order_exists = True
+                break
+            except Order.DoesNotExist:
+                attempt += 1
+                time.sleep(1)
+
+        if order_exists:
             return HttpResponse(
                 content=f'Webhook received: {event["type"]} | SUCCESS: Verified order already in database',
-                status=200
-            )
-        except Order.DoesNotExist:
+                status=200)
+
+        else:
             order = None
-
-        try:
-            # Create the order
-            order = Order.objects.create(
-                email=email,
-                is_paid=True,
-                stripe_pid=pid,
-                grand_total=grand_total,
-                original_bag=bag,
-            )
-
-            # Process the order items
-            for item_id, item_data in json.loads(bag).items():
-                product = Product.objects.get(id=item_id)
-                order_line_item = OrderLineItem(
-                    order=order,
-                    product=product,
-                    lineitem_price=product.price,
+            try:
+                order = Order.objects.create(
+                    full_name=full_name,
+                    user_profile=profile,
+                    email=email,
+                    grand_total=grand_total,
+                    original_bag=bag,
+                    stripe_pid=pid,
                 )
-                order_line_item.save()
 
-           
-        except Exception as e:
-            if order:
-                order.delete()  # Clean up if there's an error
-            # Log the error for debugging
-            print(f'Error processing order: {str(e)}')
-            return HttpResponse(
-                content=f'Webhook received: {event["type"]} | ERROR: Order processing failed.',
-                status=500
-            )
+                for item_id, item_data in json.loads(bag).items():
+                    product = Product.objects.get(id=item_id)
+                    if isinstance(item_data, int):
+                        order_line_item = OrderLineItem(
+                            order=order,
+                            product=product,
+                            quantity=item_data,
+                        )
+                        order_line_item.save()
+                    else:
+                        for size, quantity in item_data['items_by_size'].items():
+                            order_line_item = OrderLineItem(
+                                order=order,
+                                product=product,
+                                quantity=quantity,
+                                product_size=size,
+                            )
+                            order_line_item.save()
+
+            except Exception as e:
+                if order:
+                    order.delete()
+                return HttpResponse(
+                    content=f'Webhook received: {event["type"]} | ERROR: {e}',
+                    status=500)
 
         return HttpResponse(
             content=f'Webhook received: {event["type"]} | SUCCESS: Created order in webhook',
-            status=200
-        )
+            status=200)
 
     def handle_payment_intent_payment_failed(self, event):
         """Handle the payment_intent.payment_failed webhook from Stripe"""
         return HttpResponse(
             content=f'Webhook received: {event["type"]} | Payment failed.',
-            status=200
-        )
+            status=200)
