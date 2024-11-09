@@ -16,7 +16,6 @@
     <div class="overlay"></div>
     <div class="container mt-5">
         <div class="row justify-content-center">
-            <!-- Order Summary Section -->
             <div class="col-12 order-summary">
                 <h2 class="order-summary-title">Order Summary</h2>
                 <div class="order-summary-content">
@@ -49,20 +48,31 @@
                 </div>
             </div>
 
-            <!-- User Information Section -->
             <div class="col-12 mt-4 user-info">
                 <h2 class="form-title">Your Information</h2>
                 <form action="#" method="POST" id="payment-form">
                     {% csrf_token %}
                     <fieldset class="form-fieldset">
                         <legend class="fieldset-label">Contact Information</legend>
-                        <input type="text" name="full_name" class="form-control" 
-                            value="{% if user.is_authenticated %}{{ user.get_full_name }}{% endif %}" 
-                            placeholder="Full Name" required>
-                        <input type="email" name="email" class="form-control" 
+                        
+                        <input type="text" id="id_first_name" name="first_name" class="form-control mb-3" 
+                            value="{% if user.is_authenticated %}{{ user.first_name }}{% endif %}" 
+                            placeholder="First Name" required>
+                        
+                        <input type="text"  id="id_last_name" name="last_name" class="form-control mb-3" 
+                            value="{% if user.is_authenticated %}{{ user.last_name }}{% endif %}" 
+                            placeholder="Last Name" required>   
+                        
+                        <input type="email"  id="email" name="email" class="form-control mb-3" 
                             value="{% if user.is_authenticated %}{{ user.email }}{% endif %}" 
                             placeholder="Email" required>
+
+                            <div class="form-check mt-3">
+                                <input type="checkbox" class="form-check-input" id="id-save-info" name="save_info">
+                                <label class="form-check-label" for="id-save-info">Save this information for future checkouts</label>
+                            </div>
                     </fieldset>
+                    
                     <fieldset class="px-3">
                         <legend class="fieldset-label">Payment</legend>
                         <div class="mb-3" id="card-element"></div>

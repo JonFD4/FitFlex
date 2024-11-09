@@ -54,9 +54,13 @@
 
 
                 <div class="next-steps mt-4">
-                    <h4>What’s Next?</h4>
-                    <p>You can download your purchased products from the links provided in your confirmation email. If you have any issues, feel free to <a href="#">contact us</a>.</p>
-                    <a href="{% url 'all_products' %}" class="btn btn-primary mt-3">Continue Shopping</a>
+                    {% if from_profile %}
+                        <a href="{% url 'all_products' %}" class="btn btn-primary mt-3">Back to profile</a>
+                    {% else %}
+                        <h4>What’s Next?</h4>
+                        <p>You can download your purchased products from the links provided in your confirmation email. If you have any issues, feel free to <a href="#">contact us</a>.</p>
+                        <a href="{% url 'all_products' %}" class="btn btn-primary mt-3">Continue Shopping</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

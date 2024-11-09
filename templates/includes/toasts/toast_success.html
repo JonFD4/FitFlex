@@ -11,7 +11,7 @@
 
         <p class="text-success font-weight-bold">{{ message }}</p>
 
-        {% if bag_items and grand_total %}
+        {% if bag_items and grand_total and not on_profile_page %}
             <hr class="mt-1 mb-3">
             <p class="logo-font bg-white text-black py-1">
                 <strong>Your Bag Summary ({{ product_count }} items)</strong>

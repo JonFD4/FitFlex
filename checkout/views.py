@@ -1,15 +1,15 @@
 import stripe
 import json
-
 from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpResponse
 from django.contrib import messages
 from django.conf import settings
 from django.views.decorators.http import require_POST
-
 from fitflexproduct.models import WorkoutProgram as Product
 from .forms import OrderForm
 from .models import Order, OrderLineItem
-from bag.context import bag_contents  # Import the bag_contents function
+from bag.context import bag_contents  
+from user_profiles.forms import UserProfileForm
+from user_profiles.models import UserProfile
 
 
 @require_POST
@@ -24,46 +24,38 @@ def cache_checkout_data(request):
         })
         return HttpResponse(status=200)
     except Exception as e:
-        messages.error(request, ('Sorry, your payment cannot be '
-                                 'processed right now. Please try '
-                                 'again later.'))
+        messages.error(request, 'Sorry, your payment cannot be processed right now. Please try again later.')
         return HttpResponse(content=e, status=400)
+
 
 def checkout(request):
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
     current_bag = bag_contents(request)
-    grand_total = current_bag['grand_total']  
+    grand_total = current_bag['grand_total']
     discounted_total = current_bag['total_price']
 
     if request.method == 'POST':
-        # Retrieve the bag from session
         bag = request.session.get('bag', {})
         if not bag:
             messages.error(request, "There's nothing in your bag at the moment")
-            return redirect(reverse('products'))
-
+            return redirect(reverse('all_products'))
 
         form_data = {
-            'full_name': request.POST['full_name'],
+            'first_name': request.POST['first_name'],
+            'last_name': request.POST['last_name'],
             'email': request.POST['email'],
         }
         order_form = OrderForm(form_data)
-        print(form_data)
-        
-        if order_form.is_valid():
-            print('form is valid')
-            print(order_form.errors) 
 
+        if order_form.is_valid():
             order = order_form.save(commit=False)
-            print(order)
             pid = request.POST.get('client_secret').split('_secret')[0]
             order.stripe_pid = pid
             order.original_bag = json.dumps(bag)
             order.grand_total = grand_total
             order.order_total = discounted_total
             order.save()
-
 
             try:
                 for item_id in bag:
@@ -82,29 +74,20 @@ def checkout(request):
                 order.delete()
                 return redirect(reverse('bag'))
 
-            # Store info for future use
             request.session['save_info'] = 'save-info' in request.POST
 
-            # Redirect to a success page 
             return redirect(reverse('checkout_success', args=[order.order_number]))
         else:
             messages.error(request, 'There was an error with your form. Please double-check your information.')
 
     else:
- 
         bag = request.session.get('bag', {})
         if not bag:
             messages.error(request, "There's nothing in your bag at the moment")
             return redirect(reverse('all_products'))
 
-
-      
+        stripe_total = round(discounted_total * 100)
         
-        stripe_total = round(discounted_total * 100) 
-        
-        
-
-        # Create a payment intent for Stripe
         stripe.api_key = stripe_secret_key
         try:
             intent = stripe.PaymentIntent.create(
@@ -115,42 +98,57 @@ def checkout(request):
             messages.error(request, f'Stripe error occurred: {str(e)}')
             return redirect(reverse('bag'))
 
-       
-        order_form = OrderForm()
+        # Prefill the order form with user information if authenticated
+        if request.user.is_authenticated:
+            try:
+                profile = UserProfile.objects.get(user=request.user)
+                order_form = OrderForm(initial={
+                    'first_name': profile.user.first_name,
+                    'last_name': profile.user.last_name,
+                    'email': profile.user.email,
+                })
+            except UserProfile.DoesNotExist:
+                order_form = OrderForm()
+        else:
+            order_form = OrderForm()
 
-    # Warn if Stripe public key is missing
     if not stripe_public_key:
         messages.warning(request, 'Stripe public key is missing. Please set it in your environment.')
 
-    # Prepare template context
-    template = 'checkout/checkout.html'
     context = {
         'order_form': order_form,
         'stripe_public_key': stripe_public_key,
-        'client_secret': intent.client_secret,  # Pass the client secret to the template
-        
+        'client_secret': intent.client_secret,
     }
-
-    return render(request, template, context)
-
+    return render(request, 'checkout/checkout.html', context)
 
 
 def checkout_success(request, order_number):
-    """
-    Handle successful checkouts
-    """
-    save_info = request.session.get('save_info')
     order = get_object_or_404(Order, order_number=order_number)
-    messages.success(request, f'Order successfully processed! \
-        Your order number is {order_number}. A confirmation \
-        email with a link to purchased product will be sent to {order.email}.')
+    save_info = request.session.get('save_info')
+    
+    # Link order to user profile and update profile data if save_info is true
+    if request.user.is_authenticated:
+        profile, created = UserProfile.objects.get_or_create(user=request.user)
+        order.user_profile = profile
+        order.save()
+
+        if save_info:
+            profile_data = {
+                'first_name': order.first_name,
+                'last_name': order.last_name,
+                'email': order.email,
+            }
+            user_profile_form = UserProfileForm(profile_data, instance=profile)
+            if user_profile_form.is_valid():
+                user_profile_form.save()
+
+    messages.success(request, f'Order successfully processed! Your order number is {order_number}. A confirmation email will be sent to {order.email}.')
 
     if 'bag' in request.session:
         del request.session['bag']
 
-    template = 'checkout/checkout_success.html'
     context = {
         'order': order,
     }
-
-    return render(request, template, context)
+    return render(request, 'checkout/checkout_success.html', context)
