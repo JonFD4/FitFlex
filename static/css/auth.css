@@ -1,53 +1,73 @@
-/* styling for both login and signup pages */
-.login-page body, .signup-page body {
-    height: 100vh; 
-    margin: 0;
-    padding: 0;
+.login-page, .signup-page {
+    position: relative;
+    background-image: url('../media/hero_image.jpg');
+    background-size: cover;
+    background-position: center center;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
 }
 
 .login-page .container-fluid, .signup-page .container-fluid {
-    background-color: #f4f7fb;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
     position: relative;
     z-index: 2;
 }
 
+.login-page .container-fluid {
+    background-color: #f4f7fb;
+}
+
 .login-page .card, .signup-page .card {
+    max-width: 400px;
+    width: 100%;
+    margin-top: 20px;
+    padding: 1.5rem;
     border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 0 0 15px rgba(0, 123, 255, 0.3); 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 0 0 15px rgba(0, 123, 255, 0.3);
     background: rgba(255, 255, 255, 0.9);
-    position: relative;
-    z-index: 3;
 }
 
 .login-page .card-body, .signup-page .card-body {
-    padding: 1.5rem;
+    padding: 1rem;
     background: rgba(0, 123, 255, 0.15);
     border-radius: 8px;
+    position: relative;
 }
 
-/* Heading styling */
 .login-page h1, .signup-page h1 {
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 600;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     color: white;
     position: relative;
-    z-index: 5; 
+    z-index: 5;
 }
 
-/* Form input fields styling */
+.login-page p, .signup-page p {
+    color: white;
+    position: relative;
+    z-index: 5;
+}
+
 .login-page input[type="text"], .login-page input[type="password"], .login-page input[type="email"],
 .signup-page input, .signup-page select, .signup-page textarea {
-    background-color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 12px;
+    padding: 8px 12px;
+    font-size: 14px;
+    width: 100%;
     border: 1px solid #ccc;
     border-radius: 8px;
-    padding: 10px 15px;
-    font-size: 16px;
-    width: 100%;
-    margin-bottom: 15px;
+    background-color: rgba(255, 255, 255, 0.9);
     transition: border-color 0.3s ease;
 }
-
 
 .login-page input[type="text"]:focus, .login-page input[type="password"]:focus, .login-page input[type="email"]:focus,
 .signup-page input:focus, .signup-page select:focus, .signup-page textarea:focus {
@@ -59,8 +79,8 @@
     background-color: #007bff;
     border: none;
     color: white;
-    font-size: 16px;
-    padding: 12px;
+    font-size: 14px;
+    padding: 10px;
     border-radius: 8px;
     transition: background-color 0.3s ease;
 }
@@ -73,8 +93,8 @@
     background-color: transparent;
     border: 1px solid #007bff;
     color: #007bff;
-    font-size: 16px;
-    padding: 12px;
+    font-size: 14px;
+    padding: 10px;
     border-radius: 8px;
     transition: background-color 0.3s ease;
 }
@@ -100,7 +120,6 @@
     font-size: 14px;
 }
 
-/* Media query for mobile responsiveness */
 @media (max-width: 767px) {
     .login-page .container-fluid, .signup-page .container-fluid {
         padding: 20px;
@@ -109,6 +128,26 @@
     .login-page .card, .signup-page .card {
         padding: 20px;
     }
+}
+
+.login-page .text-center.mb-3, .signup-page .text-center.mb-3 {
+    position: relative;
+    z-index: 5;
+}
+.signup-page label, .login-page label {
+  
+    display: none;
+}
+
+label[for="id_remember"] {
+    display:inline;
+    color:blue;
+}
+
+
+.login-page .text-center.mb-3 {
+    position: relative;
+    z-index: 5;
 }
 
 .login-page, .signup-page {
@@ -123,7 +162,6 @@
     overflow: hidden;
 }
 
-/* Dark overlay on the background */
 .login-page::before, .signup-page::before {
     content: '';
     position: absolute;
@@ -131,40 +169,25 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); 
-    z-index: 1; 
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
 }
 
 .login-page .container-fluid, .signup-page .container-fluid {
     position: relative;
-    z-index: 2; 
+    z-index: 2;
 }
-
 
 .login-page .card, .signup-page .card {
     position: relative;
     z-index: 3;
     border-radius: 8px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 0 0 15px rgba(0, 123, 255, 0.3);
-    background: rgba(255, 255, 255, 0.9); 
+    background: rgba(255, 255, 255, 0.9);
 }
 
-
-.login-page h1, .signup-page h1,
-.login-page p, .signup-page p {
+.login-page h1, .signup-page h1, .login-page p, .signup-page p {
     color: white;
     position: relative;
     z-index: 5;
 }
-label{
-    color: blue;
-}
-
-.login-page .text-primary, .signup-page .text-primary {
-    color: #007bff !important;
-}
-
-
-.login-page .text-center.mb-3, .signup-page .text-center.mb-3 {
-    position: relative;
-    z-index: 5; }
