@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %}- ERROR 404{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <h1 class="display-4 text-danger">Oops! The page you are looking for doesn't exist.</h1>
+            <p class="lead text-muted">Sorry, the page you requested could not be found.</p>
+            <h5 class="mb-4 text-muted">Please go back and try again or contact us if you need any help!</h5>
+
+           
+            <a href="{% url 'home' %}" class="btn btn-primary btn-lg mb-3">Go to Home</a>
+            <br>
+            <a href="{% url 'contact' %}" class="btn btn-outline-secondary btn-lg">Contact Us</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
