@@ -2,8 +2,6 @@
 
 {% block content %}
 <div class="container mt-5">
-
-    <!-- Back to Products Button -->
     <div class="row d-flex">
         <div class="col-12">
             <a href="{% url 'all_products' %}" class="btn btn-primary mb-3">
@@ -13,7 +11,6 @@
     </div>
 
     <div class="row">
-        <!-- Product Image -->
         <div class="col-md-6">
             {% if product.image %}
                 <img class="img-fluid product-detail-image" src="{{ product.image.url }}" alt="{{ product.image.name }}">
@@ -21,14 +18,10 @@
                 <img class="img-fluid product-detail-image" src="{{ MEDIA_URL }}noimage.png" alt="No Image Available">
             {% endif %}
         </div>
-
-        <!-- Product Info -->
         <div class="col-md-6">
             <div class="product-info">
                 <h1 class="product-name">{{ product.name }}</h1>
                 <h4 class="product-price">£{{ product.price }}</h4>
-                
-                <!-- Add to Basket and Wishlist -->
                 <form action="{% url 'add_to_bag' product.id %}" method="POST" class="d-inline">
                     {% csrf_token %}
                     <button type="submit" class="custom-button button-basket">
@@ -36,15 +29,6 @@
                     </button>
                     <input type="hidden" name="redirect_url" value="{{ request.path }}">
                 </form>
-
-                <form action="#" method="POST" class="d-inline">
-                    {% csrf_token %}
-                    <input type="hidden" name="redirect_url" value="{{ request.path }}">
-                    <button type="submit" class="custom-button button-wishlist">
-                        <i class="fas fa-heart"></i>
-                    </button>
-                </form>
-
                 <div class="col-12">
                     {% if request.user.is_superuser %}
                         <small class="ml-3">

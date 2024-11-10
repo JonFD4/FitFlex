@@ -522,9 +522,6 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #007bff;
 }
 
-.button-wishlist {
-    background-color: #6c757d;
-}
 
 .custom-button:hover {
     opacity: 0.9;
