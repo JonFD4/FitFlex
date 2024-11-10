@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /accounts/
+Disallow: /bag/
+Disallow: /user_profile/
+Disallow: /fitflexproduct/add/
+Disallow: /checkout/
+Sitemap: https://fitflexapp-e29fb3bd789f.herokuapp.com//sitemap.xml
