@@ -33,7 +33,6 @@ class Order(models.Model):
         Update the grand_total as new items are added. 
         Since it's a digital product, no delivery cost is needed.
         """
-        print(f"Calculated order total: {self.order_total}")
         self.grand_total = self.lineitems.aggregate(Sum('lineitem_price'))['lineitem_price__sum'] or 0.00
         current_date = datetime.now()
         if current_date.month == 10:  
