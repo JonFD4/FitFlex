@@ -1,6 +1,8 @@
 # FitFlex
 FitFlex is a digital platform offering personalized workout routines for all fitness levels. With an intuitive design, users can easily browse and purchase plans tailored to specific goals like weight loss, muscle gain, and endurance. Each plan includes video demos, progress tracking, and community support for a motivating experience. Flexible payment options—such as one-time purchases and subscriptions—make FitFlex accessible for everyone, whether at home or on the go.
 
+[live website](https://fitflexapp-e29fb3bd789f.herokuapp.com/)
+
 ## SEO and Marketing Research
 ### Keyword Research
 <details>
@@ -253,6 +255,288 @@ Toasts are present through out the website and are triggered in response to user
   Git is used for version control, and GitHub is used to manage the project’s codebase. It enables collaboration, version tracking, and code review.
 
 # Deployment
+
+### **1. Version Control and Git Management**
+
+<details>
+<summary><strong>Git Version Control Setup</strong></summary>
+
+- **Create a GitHub Repository**:
+    - First, create a repository on GitHub where you will store the **FitFlex** project. Push your local code to this repository for version control.
+
+- **Add Files to Staging**:
+    - Use the following command to add all files to staging:
+    ```bash
+    git add .
+    ```
+
+- **Commit Changes**:
+    - Commit your changes with a descriptive message:
+    ```bash
+    git commit -m "Commit message"
+    ```
+
+- **Push Changes to GitHub**:
+    - Push the changes to your GitHub repository:
+    ```bash
+    git push
+    ```
+
+- **Forking the Repository** (if collaborating):
+    - Log into GitHub, locate your repository, and click the **"Fork"** button to create your own copy of the project.
+
+- **Clone Repository Locally**:
+    - Find your repository on GitHub, click the **'Code'** dropdown, and copy the repository URL.
+    - Open your terminal or Git Bash and run the following command to clone it:
+    ```bash
+    git clone <repository-url>
+    ```
+
+- **Install Requirements**:
+    - Ensure all required packages are installed by running:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+</details>
+
+---
+
+### **2. Database Setup (ElephantSQL)**
+
+<details>
+<summary><strong>Database Configuration (ElephantSQL)</strong></summary>
+
+**FitFlex** will use **ElephantSQL** for PostgreSQL database management.
+
+- **Create a New Database Instance**:
+    - Go to [ElephantSQL](https://www.elephantsql.com/) and log in.
+    - Click **"Create New Instance"**, choose a plan, and enter a name for the instance. Click **"Create instance"**.
+
+- **Copy the Database URL**:
+    - In your ElephantSQL dashboard, find your newly created instance and copy the **URL** (it will start with `postgres://`).
+
+- **Set the Database URL in Your Environment**:
+    - Open the **env.py** file in your project and add the following line:
+    ```python
+    os.environ["DATABASE_URL"] = "postgres://your-database-url"
+    ```
+
+</details>
+
+---
+
+### **3. Django Secret Key Configuration**
+
+<details>
+<summary><strong>Secret Key Configuration</strong></summary>
+
+The **SECRET_KEY** is crucial for the security of your Django app. Set it as an environment variable for enhanced security.
+
+- **Set the Secret Key**:
+    - Open your **env.py** file and add the following line:
+    ```python
+    os.environ["SECRET_KEY"] = "your-secret-key"
+    ```
+
+</details>
+
+---
+
+### **4. Deploying on Heroku**
+
+<details>
+<summary><strong>Heroku Deployment</strong></summary>
+
+To deploy **FitFlex** to Heroku, follow these steps:
+
+- **Create a New App on Heroku**:
+    - Log in to the [Heroku dashboard](https://www.heroku.com/), click **"New" > "Create new app"**.
+    - Enter a name for your app, choose a region, and click **"Create app"**.
+
+- **Connect Your GitHub Repository to Heroku**:
+    - In the **Deploy** tab, choose **"Deployment method"**.
+    - Authorise Heroku to access your GitHub account and select your repository.
+
+- **Set Configuration Variables**:
+    - Go to the **Settings** tab on Heroku, click **"Reveal Config Vars"**.
+    - Add the following configuration variables:
+        - `AWS_ACCESS_KEY_ID` = your AWS access key ID
+        - `DATABASE_URL` = your ElephantSQL database URL
+        - `DISABLE_COLLECTSTATIC` = 1 (for initial deployment)
+        - `SECRET_KEY` = your Django secret key
+
+    *Note: Remove `DISABLE_COLLECTSTATIC` after the first deployment to let Heroku handle static files automatically.*
+
+- **Update Django Settings**:
+    - In **settings.py**, update the `ALLOWED_HOSTS` to include your Heroku app's URL:
+    ```python
+    ALLOWED_HOSTS = ['your-heroku-app-name.herokuapp.com', 'localhost']
+    ```
+
+- **Prepare for Deployment**:
+    - Ensure your **Procfile** contains the following:
+    ```bash
+    web: gunicorn fitflex.wsgi:application
+    ```
+    - Create a **runtime.txt** file in the project root, specifying the Python version:
+    ```txt
+    python-3.11.4
+    ```
+
+- **Deploy the Application**:
+    - Go to the **Deploy** tab on Heroku, select **Manual deploy**, choose the **main** branch, and click **Deploy Branch**.
+
+- **Final Steps**:
+    - After deployment, remove the `DISABLE_COLLECTSTATIC` config variable in Heroku's settings.
+
+- **Access the Deployed App**:
+    - After the build is complete, access your app at the provided Heroku URL.
+
+</details>
+
+---
+
+### **5. AWS (Amazon Web Services) Setup for Static and Media Files**
+
+<details>
+<summary><strong>AWS Setup (S3 for Static and Media Files)</strong></summary>
+
+**FitFlex** will use **AWS S3** for storing static and media files. Here's how to set it up:
+
+- **Create an AWS Account**:
+    - Sign up or log in to your [AWS account](https://aws.amazon.com/).
+
+- **Create an S3 Bucket**:
+    - Go to **S3** in the AWS console and click **"Create bucket"**.
+    - Name your bucket (e.g., `fitflex-static-media`), and choose the region.
+    - Enable **ACLs** under **Object Ownership**.
+    - Uncheck **"Block all public access"**.
+    - Enable **Static Website Hosting** for the bucket.
+
+- **Set CORS Configuration**:
+    - In the **CORS Configuration** section, use the following settings:
+    ```json
+    [
+        {
+            "AllowedHeaders": ["Authorization"],
+            "AllowedMethods": ["GET"],
+            "AllowedOrigins": ["*"],
+            "ExposeHeaders": []
+        }
+    ]
+    ```
+
+- **Set Bucket Policy**:
+    - Use the **AWS Policy Generator** to create a **S3 Bucket Policy** allowing `GetObject` for all principals:
+    - Add your bucket ARN and append `/*` to the resource key.
+
+- **IAM (Identity and Access Management)**:
+    - In IAM, create a **User Group** with full access to S3.
+    - Create an **IAM User** and assign it to the group. Download the **access keys** (CSV file).
+
+- **Add AWS Credentials to Heroku**:
+    - On Heroku, navigate to the **Settings** tab and add the following config variables:
+        - `AWS_ACCESS_KEY_ID` = your AWS access key ID
+        - `AWS_SECRET_ACCESS_KEY` = your AWS secret access key
+        - `USE_AWS` = `True`
+
+</details>
+
+---
+
+### **6. Connect AWS to Django for Static and Media Files**
+
+<details>
+<summary><strong>Connecting AWS S3 to Django</strong></summary>
+
+- **Install Necessary Packages**:
+    ```bash
+    pip install boto3 django-storages
+    ```
+
+- **Update `settings.py`**:
+    - Add `'storages'` to your `INSTALLED_APPS` in **settings.py**.
+    - Add the following AWS settings within a condition that checks for the `USE_AWS` environment variable:
+    ```python
+    if 'USE_AWS' in os.environ:
+        AWS_STORAGE_BUCKET_NAME = 'fitflex-static-media'
+        AWS_S3_REGION_NAME = 'your-region'
+        AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+        AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+        AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+    ```
+
+- **Create Custom Storage Classes**:
+    - Create a new file in your project root called `custom_storages.py`, and define the storage classes:
+    ```python
+    from django.conf import settings
+    from storages.backends.s3boto3 import S3Boto3Storage
+
+    class StaticStorage(S3Boto3Storage):
+        location = settings.STATICFILES_LOCATION
+
+    class MediaStorage(S3Boto3Storage):
+        location = settings.MEDIAFILES_LOCATION
+    ```
+
+- **Define Storage Locations**:
+    - In **settings.py**, within the `USE_AWS` condition, add the following:
+    ```python
+    STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+    STATICFILES_LOCATION = 'static'
+    DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+    MEDIAFILES_LOCATION = 'media'
+
+
+
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/'
+    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
+    ```
+
+- **Upload Static and Media Files**:
+    - Run `python manage.py collectstatic` to upload your static files to S3.
+    - Upload any media files (such as product images) directly to S3 in the `media` folder.
+
+</details>
+
+---
+
+### **7. Integrating Stripe for Payments**
+
+<details>
+<summary><strong>Stripe Integration</strong></summary>
+
+- **Create a Stripe Account**:
+    - Sign up for a **Stripe** account at [Stripe's website](https://stripe.com).
+
+- **Configure Stripe Keys**:
+    - In your **Stripe Dashboard**, obtain the **Publishable Key** and **Secret Key** from the **API Keys** section.
+    - In your **Heroku Config Vars**, add:
+        - `STRIPE_PUBLIC_KEY` = your publishable key
+        - `STRIPE_SECRET_KEY` = your secret key
+
+- **Set Up Webhooks in Stripe**:
+    - Go to **Developers > Webhooks** in your Stripe dashboard, and click **Add endpoint**.
+    - Enter the webhook URL as `https://your-app-name.herokuapp.com/checkout/wh/`.
+    - Select **"All events"** and add them.
+
+- **Configure Webhook Secret in Heroku**:
+    - In Heroku's **Config Vars**, add:
+        - `STRIPE_WH_SECRET` = your Stripe webhook secret key
+
+- **Update `settings.py`**:
+    - In **settings.py**, add the following:
+    ```python
+    STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '')
+    STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
+    STRIPE_WH_SECRET = os.getenv('STRIPE_WH_SECRET', '')
+    ```
+
+</details>
+
+---
+
 
 # Testing and Validation
 
