@@ -163,7 +163,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Style hero section */
 .hero-section {
-    background-image: url('../media/hero_image.jpg'); 
+    background-image: url("https://eu-west-2.console.aws.amazon.com/s3/object/fitflexapp-bucket?region=eu-west-2&bucketType=general&prefix=media/hero_image.jpg");
     background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat; 
