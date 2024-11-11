@@ -14,13 +14,11 @@ import dj_database_url
 
 if os.path.exists("env.py"):
   import env 
-  
-#   DEBUG = True
-  
-# else:
-#     DEBUG = False
+  DEBUG = True 
+else:
+    DEBUG = False
 
-DEBUG = True
+
 
 
 from pathlib import Path
@@ -80,6 +78,7 @@ STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
