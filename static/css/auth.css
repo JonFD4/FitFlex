@@ -1,6 +1,7 @@
+/* Page Background Styling */
 .login-page, .signup-page {
     position: relative;
-    background-image: url('../media/hero_image.jpg');
+    background-image: url('https://fitflexapp-bucket.s3.eu-west-2.amazonaws.com/media/hero_image.jpg');
     background-size: cover;
     background-position: center center;
     min-height: 100vh;
@@ -10,6 +11,18 @@
     overflow: hidden;
 }
 
+.login-page::before, .signup-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+/* Container Styling */
 .login-page .container-fluid, .signup-page .container-fluid {
     height: 100%;
     display: flex;
@@ -25,16 +38,20 @@
     background-color: #f4f7fb;
 }
 
+/* Card Styling */
 .login-page .card, .signup-page .card {
     max-width: 400px;
     width: 100%;
     margin-top: 20px;
     padding: 1.5rem;
+    position: relative;
+    z-index: 3;
     border-radius: 8px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 0 0 15px rgba(0, 123, 255, 0.3);
     background: rgba(255, 255, 255, 0.9);
 }
 
+/* Card Body Styling */
 .login-page .card-body, .signup-page .card-body {
     padding: 1rem;
     background: rgba(0, 123, 255, 0.15);
@@ -42,23 +59,25 @@
     position: relative;
 }
 
+/* Header and Paragraph Styling */
+.login-page h1, .signup-page h1, 
+.login-page p, .signup-page p, 
+.login-page .text-center.mb-3, .signup-page .text-center.mb-3 {
+    color: white;
+    position: relative;
+    z-index: 5;
+}
+
 .login-page h1, .signup-page h1 {
     font-size: 28px;
     font-weight: 600;
     margin-bottom: 15px;
-    color: white;
-    position: relative;
-    z-index: 5;
 }
 
-.login-page p, .signup-page p {
-    color: white;
-    position: relative;
-    z-index: 5;
-}
-
-.login-page input[type="text"], .login-page input[type="password"], .login-page input[type="email"],
-.signup-page input, .signup-page select, .signup-page textarea {
+/* Input and Form Control Styling */
+.login-page input[type="text"], .login-page input[type="password"], 
+.login-page input[type="email"], .signup-page input, 
+.signup-page select, .signup-page textarea {
     margin-bottom: 12px;
     padding: 8px 12px;
     font-size: 14px;
@@ -69,12 +88,13 @@
     transition: border-color 0.3s ease;
 }
 
-.login-page input[type="text"]:focus, .login-page input[type="password"]:focus, .login-page input[type="email"]:focus,
-.signup-page input:focus, .signup-page select:focus, .signup-page textarea:focus {
+.login-page input:focus, .signup-page input:focus, 
+.signup-page select:focus, .signup-page textarea:focus {
     border-color: #007bff;
     outline: none;
 }
 
+/* Button Styling */
 .login-page button.btn-primary, .signup-page button.btn-primary {
     background-color: #007bff;
     border: none;
@@ -104,7 +124,9 @@
     color: white;
 }
 
-.login-page .forgot-password-link, .signup-page .forgot-password-link {
+/* Additional Text Styling */
+.login-page .forgot-password-link, .signup-page .forgot-password-link, 
+.login-page .signup-link, .signup-page .signup-link {
     font-size: 14px;
 }
 
@@ -116,78 +138,20 @@
     color: #007bff !important;
 }
 
-.login-page .signup-link {
-    font-size: 14px;
-}
-
-@media (max-width: 767px) {
-    .login-page .container-fluid, .signup-page .container-fluid {
-        padding: 20px;
-    }
-
-    .login-page .card, .signup-page .card {
-        padding: 20px;
-    }
-}
-
-.login-page .text-center.mb-3, .signup-page .text-center.mb-3 {
-    position: relative;
-    z-index: 5;
-}
+/* Label Visibility Adjustments */
 .signup-page label, .login-page label {
-  
     display: none;
 }
 
 label[for="id_remember"] {
-    display:inline;
-    color:blue;
+    display: inline;
+    color: blue;
 }
 
-
-.login-page .text-center.mb-3 {
-    position: relative;
-    z-index: 5;
-}
-
-.login-page, .signup-page {
-    position: relative;
-    background-image: url('../media/hero_image.jpg');
-    background-size: cover;
-    background-position: center center;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
-
-.login-page::before, .signup-page::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1;
-}
-
-.login-page .container-fluid, .signup-page .container-fluid {
-    position: relative;
-    z-index: 2;
-}
-
-.login-page .card, .signup-page .card {
-    position: relative;
-    z-index: 3;
-    border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 0 0 15px rgba(0, 123, 255, 0.3);
-    background: rgba(255, 255, 255, 0.9);
-}
-
-.login-page h1, .signup-page h1, .login-page p, .signup-page p {
-    color: white;
-    position: relative;
-    z-index: 5;
+/* Mobile Responsiveness */
+@media (max-width: 767px) {
+    .login-page .container-fluid, .signup-page .container-fluid,
+    .login-page .card, .signup-page .card {
+        padding: 20px;
+    }
 }
