@@ -3,7 +3,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import UserProfile
 from .forms import UserProfileForm
-
 from checkout.models import Order
 
 @login_required
@@ -16,6 +15,12 @@ def profile(request):
 
         if form.is_valid():
             form.save()
+
+            user.first_name = form.cleaned_data.get('default_first_name')
+            user.last_name = form.cleaned_data.get('default_last_name')
+            user.email = form.cleaned_data.get('email')
+            user.save()
+
             messages.success(request, 'Your profile has been updated successfully.')
             return redirect('profile')
         else:
@@ -34,6 +39,7 @@ def profile(request):
     }
 
     return render(request, 'profiles/profile.html', context)
+
 
 @login_required
 def order_history(request, order_number):
