@@ -3,6 +3,7 @@
 {% block content %}
 <div class="container-fluid mt-4">
     <h1 class="text-center page-title">Workout Programs</h1>
+    
     <div class="row mb-4 filter-section justify-content-center">
         <div class="col-md-4 filter-item">
             <h5 class="filter-title">Filter by Category:</h5>
@@ -10,7 +11,7 @@
                 <select class="form-select category-filter" name="category">
                     <option value="">Select Category</option>
                     {% for category in categories %}
-                        <option value="{{ category.friendly_name }}"
+                        <option value="{{ category.friendly_name }}" 
                             {% if selected_category == category.friendly_name %} selected {% endif %}>
                             {{ category.get_friendly_name }}
                         </option>
@@ -23,7 +24,7 @@
             <select class="form-select difficulty-filter" name="difficulty">
                 <option value="">Select Difficulty Level</option>
                 {% for difficulty in difficulty_levels %}
-                    <option value="{{ difficulty.name }}"
+                    <option value="{{ difficulty.name }}" 
                         {% if selected_difficulty == difficulty.name %} selected {% endif %}>
                         {{ difficulty.name }}
                     </option>
@@ -35,20 +36,15 @@
             <h5 class="filter-title">Filter by Price:</h5>
             <select class="form-select price-filter" name="price">
                 <option value="">Select Price Range</option>
-                <option value="low-to-high"
-                    {% if price_order == 'low-to-high' %} selected {% endif %}>
-                    Low to High
-                </option>
-                <option value="high-to-low"
-                    {% if price_order == 'high-to-low' %} selected {% endif %}>
-                    High to Low
-                </option>
+                <option value="low-to-high" {% if price_order == 'low-to-high' %} selected {% endif %}>Low to High</option>
+                <option value="high-to-low" {% if price_order == 'high-to-low' %} selected {% endif %}>High to Low</option>
             </select>
             <button type="submit" class="btn btn-muted btn-sm mt-2">Filter</button>
             <a href="{% url 'all_products' %}" class="btn btn-danger btn-sm mt-2">Remove Filter</a>
             </form>
         </div>
     </div>
+
     <div class="active-filters mb-4">
         <h5>Active Filters:</h5>
         <ul class="list-inline">
@@ -74,14 +70,15 @@
             {% endif %}
         </ul>
     </div>
+
     <div class="row product-cards justify-content-center" style="max-width: 1200px; margin: auto;">
         {% for product in products %}
         <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
             <div class="card product-card h-100">
                 {% if product.image %}
-                    <img class="card-img-top product-image" src="{{ product.image.url }}" alt="{{product.image.name }}">
+                    <img class="card-img-top product-image" src="{{ product.image.url }}" alt="{{ product.image.name }}">
                 {% else %}
-                    <img class="card-img-top product-image" src="{{ MEDIA_URL }}noimage.png" alt="{{product.image.name }}">
+                    <img class="card-img-top product-image" src="{{ MEDIA_URL }}noimage.png" alt="No image available">
                 {% endif %}
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">
@@ -101,6 +98,5 @@
         </div>
         {% endfor %}
     </div>
-
 </div>
 {% endblock %}
