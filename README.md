@@ -217,6 +217,8 @@ Toasts are present through out the website and are triggered in response to user
 # Design
 ## Modeling and Wireframing
 ## Agile Methodology
+To track steps and milestone in this project development, agile methodology was used. User stories detailing what the customer and shop owner needs along was broken down into the parent user stories and individual tasks that represent the acceptance criteria.
+[Project board](https://github.com/users/JonFD4/projects/4)
 ## Technologies
 #### **Frontend:**
 - **HTML5**  
