@@ -30,7 +30,7 @@ class Order(models.Model):
     order_number = models.CharField(
         max_length=15, unique=True, null=False, editable=False
     )
-    is_paid = models.BooleanField(default=False)
+   
     original_paid = models.TextField(null=False, blank=False, default='')
     stripe_pid = models.CharField(
         max_length=254, null=False, blank=False, default=''

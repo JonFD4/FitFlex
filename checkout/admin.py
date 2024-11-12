@@ -20,12 +20,12 @@ class OrderAdmin(admin.ModelAdmin):
     readonly_fields = ('order_number', 'date', 'order_total', 'grand_total',)
     fields = (
         'first_name', 'last_name', 'email', 'user_profile', 'order_number',
-        'date', 'is_paid', 'order_total', 'grand_total', 'original_bag',
+        'date', 'order_total', 'grand_total', 'original_bag',
         'stripe_pid'
     )
     list_display = (
         'order_number', 'first_name', 'last_name', 'email', 'date',
-        'order_total', 'grand_total', 'is_paid'
+        'order_total', 'grand_total',
     )
     ordering = ('-date',)
 
