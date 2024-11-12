@@ -3,6 +3,10 @@ FitFlex is a digital platform offering personalized workout routines for all fit
 
 [live website](https://fitflexapp-e29fb3bd789f.herokuapp.com/)
 
+* admin: adminfitflex
+* email: adminfitflex@fitflex.com
+* password: 12345ff12345
+
 ![Home page](ReadmeImages/fitflexhomepage.png)
 
 ## SEO and Marketing Research
