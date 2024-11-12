@@ -12,6 +12,13 @@ Looking through the template for the product detail page, I could not find any c
 ## Light house testing**
 Lighthouse testing was conducted in devtools to test the performance of the website
 
+## Jigsaw CSS Validation
+[link](https://jigsaw.w3.org/css-validator/)
+Errors identified through out the website had to do with fontawesome. This a future investigation to be carried out.
+* [Jigsaw error](ReadmeImages/testingimages/jigsaw/jigsawerrors.png)
+* [Jigsaw validation](ReadmeImages/testingimages/jigsaw/jigsawvalidation.png)
+
+
 ## Javascript testing**
 [JS-HINT](https://jshint.com/)
 
@@ -39,6 +46,7 @@ Lighthouse testing was conducted in devtools to test the performance of the webs
 
 ## Flake8
 Most of the files displayed e=issues with long lines and trailing whitespace. Most of which were fixed unless there were no compromise such as imports.
+
 **Files tested**
 
 * ./FAQ/views.py
