@@ -1,5 +1,18 @@
 from django import forms
-from .models import UserQuestion
+from .models import UserQuestion, FAQ
+
+
+class FAQForm(forms.ModelForm):
+    class Meta:
+        model = FAQ
+        fields = ['question', 'answer']
+        widgets = {
+            'answer': forms.Textarea(attrs={'rows': 5, 'class': 'form-control'}),
+        }
+        labels = {
+            'question': 'Question',
+            'answer': 'Answer',
+        }
 
 
 class UserQuestionForm(forms.ModelForm):

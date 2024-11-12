@@ -4,13 +4,14 @@
 <div class="container my-5">
     <h2>Answer Question</h2>
     <p><strong>Question:</strong> {{ question.question }}</p>
-    <form method="post" action="{% url 'answer_question' question.id %}">
+    <form method="post">
         {% csrf_token %}
         <div class="mb-3">
             <label for="answer" class="form-label">Answer</label>
             <textarea name="answer" id="answer" rows="5" class="form-control"></textarea>
         </div>
         <button type="submit" class="btn btn-success">Submit Answer</button>
+        <a href="{% url 'faq_search' %}" class="btn btn-danger">Cancel</a>
     </form>
 </div>
 {% endblock %}

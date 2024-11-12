@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import FAQ, UserQuestion
-from .forms import UserQuestionForm
+from .forms import FAQForm, UserQuestionForm
 from django.contrib.admin.views.decorators import staff_member_required
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
@@ -84,7 +84,7 @@ def delete_question(request, question_id):
     except Exception:
         messages.error(request, 'Error while deleting the question.')
         return HttpResponse(status=500)
-        
+
 
 @staff_member_required
 def edit_faq(request, faq_id):
