@@ -2,15 +2,14 @@ from django.http import HttpResponse
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.conf import settings
-
-
 from .models import Order, OrderLineItem
 from fitflexproduct.models import WorkoutProgram as Product
-from user_profiles.models import UserProfile  
+from user_profiles.models import UserProfile
 
 import stripe
 import json
 import time
+
 
 class StripeWH_Handler:
     """Handle Stripe webhooks"""
@@ -27,13 +26,12 @@ class StripeWH_Handler:
         body = render_to_string(
             'checkout/confirmation_emails/confirmation_email_body.txt',
             {'order': order, 'contact_email': settings.DEFAULT_FROM_EMAIL})
-        
         send_mail(
             subject,
             body,
             settings.DEFAULT_FROM_EMAIL,
             [cust_email]
-        )   
+        )
 
     def handle_event(self, event):
         return HttpResponse(
@@ -47,8 +45,8 @@ class StripeWH_Handler:
         bag = intent.metadata.bag
         save_info = intent.metadata.save_info
 
-        first_name = intent.metadata.first_name  
-        last_name = intent.metadata.last_name  
+        first_name = intent.metadata.first_name
+        last_name = intent.metadata.last_name
         email = intent.metadata.email
         full_name = f"{first_name} {last_name}"
 
@@ -85,7 +83,8 @@ class StripeWH_Handler:
         if order_exists:
             self._send_confirmation_email(order)
             return HttpResponse(
-                content=f'Webhook received: {event["type"]} | SUCCESS: Verified order already in database',
+                content=f'''Webhook received: {event["type"]} |
+                SUCCESS: Verified order already in database''',
                 status=200)
 
         else:
@@ -127,7 +126,8 @@ class StripeWH_Handler:
                     status=500)
         self._send_confirmation_email(order)
         return HttpResponse(
-            content=f'Webhook received: {event["type"]} | SUCCESS: Created order in webhook',
+            content=f'''Webhook received: {event["type"]} |
+            SUCCESS: Created order in webhook''',
             status=200)
 
     def handle_payment_intent_payment_failed(self, event):

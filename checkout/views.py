@@ -7,7 +7,7 @@ from django.views.decorators.http import require_POST
 from fitflexproduct.models import WorkoutProgram as Product
 from .forms import OrderForm
 from .models import Order, OrderLineItem
-from bag.context import bag_contents  
+from bag.context import bag_contents
 from user_profiles.forms import UserProfileForm
 from user_profiles.models import UserProfile
 
@@ -24,7 +24,11 @@ def cache_checkout_data(request):
         })
         return HttpResponse(status=200)
     except Exception as e:
-        messages.error(request, 'Sorry, your payment cannot be processed right now. Please try again later.')
+        messages.error(
+            request,
+            '''Sorry, your payment cannot be processed right now.
+            Please try again later.'''
+        )
         return HttpResponse(content=e, status=400)
 
 
@@ -38,7 +42,8 @@ def checkout(request):
     if request.method == 'POST':
         bag = request.session.get('bag', {})
         if not bag:
-            messages.error(request, "There's nothing in your bag at the moment")
+            messages.error(request, """There's nothing in your
+            bag at the moment""")
             return redirect(reverse('all_products'))
 
         form_data = {
@@ -67,27 +72,31 @@ def checkout(request):
                     )
                     order_line_item.save()
             except Product.DoesNotExist:
-                messages.error(request, (
-                    "One of the products in your bag wasn't found in our database. "
-                    "Please contact us for assistance!")
-                )
+                messages.error(request, '''One of the products in your
+                bag wasn't found in our database.
+                Please contact us for assistance!''')
                 order.delete()
                 return redirect(reverse('bag'))
 
             request.session['save_info'] = 'save-info' in request.POST
 
-            return redirect(reverse('checkout_success', args=[order.order_number]))
+            return redirect(reverse('checkout_success',
+                            args=[order.order_number]))
         else:
-            messages.error(request, 'There was an error with your form. Please double-check your information.')
+            messages.error(
+                request,
+                '''There was an error with your form.
+                Please double-check your information.'''
+            )
 
     else:
         bag = request.session.get('bag', {})
         if not bag:
-            messages.error(request, "There's nothing in your bag at the moment")
+            messages.error(request,
+                           "There's nothing in your bag at the moment")
             return redirect(reverse('all_products'))
 
         stripe_total = round(discounted_total * 100)
-        
         stripe.api_key = stripe_secret_key
         try:
             intent = stripe.PaymentIntent.create(
@@ -98,7 +107,6 @@ def checkout(request):
             messages.error(request, f'Stripe error occurred: {str(e)}')
             return redirect(reverse('bag'))
 
-        # Prefill the order form with user information if authenticated
         if request.user.is_authenticated:
             try:
                 profile = UserProfile.objects.get(user=request.user)
@@ -113,7 +121,9 @@ def checkout(request):
             order_form = OrderForm()
 
     if not stripe_public_key:
-        messages.warning(request, 'Stripe public key is missing. Please set it in your environment.')
+        messages.warning(request,
+                         '''Stripe public key is missing.
+                         Please set it in your environment.''')
 
     context = {
         'order_form': order_form,
@@ -126,8 +136,6 @@ def checkout(request):
 def checkout_success(request, order_number):
     order = get_object_or_404(Order, order_number=order_number)
     save_info = request.session.get('save_info')
-    
-    # Link order to user profile and update profile data if save_info is true
     if request.user.is_authenticated:
         profile, created = UserProfile.objects.get_or_create(user=request.user)
         order.user_profile = profile
@@ -143,7 +151,11 @@ def checkout_success(request, order_number):
             if user_profile_form.is_valid():
                 user_profile_form.save()
 
-    messages.success(request, f'Order successfully processed! Your order number is {order_number}. A confirmation email will be sent to {order.email}.')
+    messages.success(
+        request,
+        f'''Order successfully processed! Your order number is {order_number}.
+        A confirmation email will be sent to {order.email}.'''
+    )
 
     if 'bag' in request.session:
         del request.session['bag']

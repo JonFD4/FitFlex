@@ -13,12 +13,10 @@ import os
 import dj_database_url
 
 if os.path.exists("env.py"):
-  import env 
-  DEBUG = True 
+    import env
+    DEBUG = True
 else:
     DEBUG = False
-
-
 
 
 from pathlib import Path
@@ -34,7 +32,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = os.environ.get('SECRET_KEY', '')
 
 ALLOWED_HOSTS = [
-    'localhost', 
+    'localhost',
     '127.0.0.1',
     '8000-jonfd4-fitflex-mnth6whnvho.ws.codeinstitute-ide.net',
     'fitflexapp-e29fb3bd789f.herokuapp.com',
@@ -43,7 +41,7 @@ ALLOWED_HOSTS = [
 
 # domain to trusted origins
 CSRF_TRUSTED_ORIGINS = [
-    'https://8000-jonfd4-fitflex-mnth6whnvho.ws.codeinstitute-ide.net', 
+    'https://8000-jonfd4-fitflex-mnth6whnvho.ws.codeinstitute-ide.net',
 ]
 # Application definition
 
@@ -65,7 +63,7 @@ INSTALLED_APPS = [
     'checkout',
     'django_summernote',
     'crispy_forms',
-    'crispy_bootstrap5', 
+    'crispy_bootstrap5',
     'FAQ',
     'user_profiles',
     'storages',
@@ -84,7 +82,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'allauth.account.middleware.AccountMiddleware', #a widely used library for handling user authentication, registration, and account management
+    'allauth.account.middleware.AccountMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 ]
 
@@ -95,13 +93,13 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
-            os.path.join(BASE_DIR,'templates', 'allauth')
+            os.path.join(BASE_DIR, 'templates', 'allauth'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request', # required by allauth
+                'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'bag.context.bag_contents',
@@ -114,20 +112,16 @@ TEMPLATES = [
     },
 ]
 
-# settings.py
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
-
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 AUTHENTICATION_BACKENDS = [
-    
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
 
     # `allauth` specific authentication methods, such as login by email
     'allauth.account.auth_backends.AuthenticationBackend',
-    
-]
+                         ]
 
 SITE_ID = 1
 
@@ -197,9 +191,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
-
-    
-MEDIA_URL ='/media/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 if 'USE_AWS' in os.environ:
@@ -211,28 +203,26 @@ if 'USE_AWS' in os.environ:
     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 
-     # Static and media files
+    # Static and media files
     STORAGES = {
         "default": {
             "BACKEND": "custom_storages.MediaStorage",
         },
         "staticfiles": {"BACKEND": "custom_storages.StaticStorage"},
-}
+                }
     STATICFILES_LOCATION = 'static'
     MEDIAFILES_LOCATION = 'media'
 
     # Override static and media URLs in production
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/'
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
-    
 
 
-
-#stripe
+# stripe
 STRIPE_CURRENCY = 'gbp'
-STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY','')
-STRIPE_SECRET_KEY= os.getenv('STRIPE_SECRET_KEY','')
-STRIPE_WH_SECRET= os.getenv('STRIPE_WH_SECRET','')
+STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '')
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
+STRIPE_WH_SECRET = os.getenv('STRIPE_WH_SECRET', '')
 
 if 'DEVELOPMENT' in os.environ:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

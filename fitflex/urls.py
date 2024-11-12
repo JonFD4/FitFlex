@@ -18,13 +18,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from  .views import custom_404 
+from .views import custom_404
 
 handler404 = 'fitflex.views.custom_404'
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),   
+    path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('', include('home.urls')),
     path('products/', include('fitflexproduct.urls')),

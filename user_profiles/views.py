@@ -5,6 +5,7 @@ from .models import UserProfile
 from .forms import UserProfileForm
 from checkout.models import Order
 
+
 @login_required
 def profile(request):
     profile = get_object_or_404(UserProfile, user=request.user)
@@ -20,11 +21,12 @@ def profile(request):
             user.last_name = form.cleaned_data.get('default_last_name')
             user.email = form.cleaned_data.get('email')
             user.save()
-
-            messages.success(request, 'Your profile has been updated successfully.')
+            messages.success(request, '''
+            Your profile has been updated successfully.''')
             return redirect('profile')
         else:
-            messages.error(request, 'There was an error updating your profile. Please try again.')
+            messages.error(request, '''
+            There was an error updating your profile. Please try again.''')
     else:
         form = UserProfileForm(instance=profile)
 

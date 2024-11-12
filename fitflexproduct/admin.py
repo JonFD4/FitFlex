@@ -1,15 +1,15 @@
 from django.contrib import admin
 from .models import WorkoutProgram, WorkoutCategory, DifficultyLevel, Review
-from django_summernote.admin import SummernoteModelAdmin 
+from django_summernote.admin import SummernoteModelAdmin
 
 
 class ReviewInline(admin.TabularInline):
     model = Review
-    extra = 0  
+    extra = 0
 
 
-class WorkoutProgramAdmin(SummernoteModelAdmin): 
-    inlines = (ReviewInline,)  
+class WorkoutProgramAdmin(SummernoteModelAdmin):
+    inlines = (ReviewInline, )
 
     list_display = (
         'name',
@@ -18,32 +18,33 @@ class WorkoutProgramAdmin(SummernoteModelAdmin):
         'price',
         'duration_weeks',
         'created_at',
-        'image',  
+        'image',
     )
 
-    search_fields = ('name', 'category__name', 'difficulty_level__name')  # Make category and difficulty searchable
-    ordering = ('name',) 
+    search_fields = ('name', 'category__name', 'difficulty_level__name')
+    ordering = ('name',)
 
-    summernote_fields = ('description',)  
-# Admin class for managing workout categories
+    summernote_fields = ('description',)
+
+
 class WorkoutCategoryAdmin(admin.ModelAdmin):
     list_display = (
-        'friendly_name', 
-        'name',          
+        'friendly_name',
+        'name',
     )
-    ordering = ('name',) 
+    ordering = ('name',)
 
-# Admin class for managing difficulty levels
+
 class DifficultyLevelAdmin(admin.ModelAdmin):
     list_display = (
         'name',
     )
-    ordering = ('name',)  
+    ordering = ('name',)
 
-# Admin class for managing reviews separately
+
 class ReviewAdmin(admin.ModelAdmin):
     readonly_fields = (
-        'workout_program',  
+        'workout_program',
         'user',
         'rating',
         'comment',
@@ -51,16 +52,16 @@ class ReviewAdmin(admin.ModelAdmin):
     )
 
     list_display = (
-        'workout_program',  
+        'workout_program',
         'user',
         'rating',
         'comment',
         'created_at',
     )
 
-    search_fields = ('workout_program__name', 'user__username')  
-    list_filter = ('rating',)  
-    ordering = ('-created_at',)  
+    search_fields = ('workout_program__name', 'user__username')
+    list_filter = ('rating',)
+    ordering = ('-created_at',)
 
 
 admin.site.register(WorkoutProgram, WorkoutProgramAdmin)

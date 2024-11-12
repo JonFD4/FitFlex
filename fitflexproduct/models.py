@@ -1,6 +1,6 @@
 
 from django.db import models
-from django.contrib.auth.models import User 
+from django.contrib.auth.models import User
 from django_summernote.fields import SummernoteTextField
 
 
@@ -10,8 +10,8 @@ class WorkoutCategory(models.Model):
     """
     class Meta:
         verbose_name_plural = 'Workout Categories'
-        
-    name = models.CharField(max_length=254)  
+
+    name = models.CharField(max_length=254)
     friendly_name = models.CharField(max_length=254)
 
     def __str__(self):
@@ -21,27 +21,29 @@ class WorkoutCategory(models.Model):
         return self.friendly_name
 
 
-        
 class DifficultyLevel(models.Model):
     """
     Represents the level of difficulty for a workout program.
     """
-    name = models.CharField(max_length=50)  
+    name = models.CharField(max_length=50)
 
     def __str__(self):
         return self.name
+
 
 class WorkoutProgram(models.Model):
     """
     Represents an overall workout program for customers to purchase.
     """
-    name = models.CharField(max_length=200) 
-    description = SummernoteTextField(blank=True, null=True) 
-    category = models.ForeignKey(WorkoutCategory, on_delete=models.CASCADE)  # Gym or Home
-    difficulty_level = models.ForeignKey(DifficultyLevel, on_delete=models.CASCADE) 
-    duration_weeks = models.IntegerField()  
-    price = models.DecimalField(max_digits=6, decimal_places=2) 
-    image = models.ImageField(upload_to='products/', blank=True, null=True, default='noimage.png')  
+    name = models.CharField(max_length=200)
+    description = SummernoteTextField(blank=True, null=True)
+    category = models.ForeignKey(WorkoutCategory, on_delete=models.CASCADE)
+    difficulty_level = models.ForeignKey(DifficultyLevel,
+                                         on_delete=models.CASCADE)
+    duration_weeks = models.IntegerField()
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+    image = models.ImageField(upload_to='products/', blank=True, null=True,
+                              default='noimage.png')
     image_url = models.URLField(max_length=1024, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -49,17 +51,18 @@ class WorkoutProgram(models.Model):
         return self.name
 
 
-
-
 class Review(models.Model):
     """
     Represents a review for a workout program.
     """
-    workout_program = models.ForeignKey(WorkoutProgram, on_delete=models.CASCADE, related_name='reviews')
+    workout_program = models.ForeignKey(WorkoutProgram,
+                                        on_delete=models.CASCADE,
+                                        related_name='reviews')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    rating = models.IntegerField()  # using integers for ratings 1-5
+    rating = models.IntegerField()
     comment = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'Review for {self.workout_program.name} by {self.user.username}'
+        return f'''Review for {self.workout_program.name}
+                by {self.user.username}'''

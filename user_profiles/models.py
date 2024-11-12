@@ -16,11 +16,10 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username
-    
+
     @property
     def full_name(self):
         return f"{self.default_first_name} {self.default_last_name}"
-
 
 
 @receiver(post_save, sender=User)
