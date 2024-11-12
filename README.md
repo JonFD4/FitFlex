@@ -1,7 +1,9 @@
 # FitFlex
-FitFlex is a digital platform offering personalized workout routines for all fitness levels. With an intuitive design, users can easily browse and purchase plans tailored to specific goals like weight loss, muscle gain, and endurance. Each plan includes video demos, progress tracking, and community support for a motivating experience. Flexible payment options—such as one-time purchases and subscriptions—make FitFlex accessible for everyone, whether at home or on the go.
+FitFlex is a digital platform offering personalized workout routines for all fitness levels. With an intuitive design, users can easily browse and purchase plans tailored to specific goals like weight loss, muscle gain, and endurance. Each plan includes video demos, progress tracking, and community support for a motivating experience. 
 
 [live website](https://fitflexapp-e29fb3bd789f.herokuapp.com/)
+
+![Home page](ReadmeImages/fitflexhomepage.png)
 
 ## SEO and Marketing Research
 ### Keyword Research
@@ -217,9 +219,67 @@ Toasts are present through out the website and are triggered in response to user
 # Design
 ## Modeling and Wireframing
 ## Agile Methodology
+
 To track steps and milestone in this project development, agile methodology was used. User stories detailing what the customer and shop owner needs along was broken down into the parent user stories and individual tasks that represent the acceptance criteria.
 [Project board](https://github.com/users/JonFD4/projects/4)
-## Technologies
+
+[Wireframes](ReadmeImages/wireframes) were also created to give a rough idea of what the site is suposed to look like but also the functionalities that were not customised.
+
+
+![Database model](ReadmeImages/dbmodel.png) designed using [dbdiagram](https://dbdiagram.io/d)
+
+
+### 1. **FAQ Model**
+- **Usage**: Stores frequently asked questions along with answers. It helps administrators manage common user queries.
+- **Relation**: Connected to `UserQuestion` through the `faq` field. If a user’s question is answered, it links back to an FAQ entry.
+
+### 2. **UserQuestion Model**
+- **Usage**: Stores questions submitted by users. Admins can review and map them to an FAQ if needed.
+- **Relation**: Linked to `FAQ` (if the user’s question is answered). This relationship allows the user’s questions to be mapped to the corresponding FAQ.
+
+### 3. **WorkoutCategory Model**
+- **Usage**: Categorizes workout programs (e.g., "Home" or "Gym").
+- **Relation**: Each `WorkoutProgram` belongs to one `WorkoutCategory`, helping users filter programs by type.
+
+### 4. **DifficultyLevel Model**
+- **Usage**: Defines different difficulty levels for workout programs (e.g., "Beginner", "Advanced").
+- **Relation**: Each `WorkoutProgram` is assigned one `DifficultyLevel`, making it easier for users to choose a program based on their fitness level.
+
+### 5. **WorkoutProgram Model**
+- **Usage**: Represents a workout program with details like name, description, price, and duration. Users can explore, purchase, and follow workout programs.
+- **Relation**: 
+  - Linked to `WorkoutCategory` (categorizing the program).
+  - Linked to `DifficultyLevel` (indicating the program's difficulty).
+  - Connected to `Review` (users can leave feedback on workout programs).
+
+### 6. **Review Model**
+- **Usage**: Allows users to rate and comment on workout programs. Reviews help other users decide which programs to follow.
+- **Relation**: 
+  - Associated with `WorkoutProgram` (each review is tied to a specific program).
+  - Linked to `User` (each review is written by a user).
+
+### 7. **UserProfile Model**
+- **Usage**: Stores additional user details like default name and email. It extends the default `User` model for extra customisation.
+- **Relation**: Linked to the built-in `User` model via a one-to-one relationship, meaning each user has a unique profile.
+
+
+### Key Relationships
+
+- **One-to-Many**: 
+  - A `WorkoutCategory` can have many `WorkoutProgram`s.
+  - A `DifficultyLevel` can have many `WorkoutProgram`s.
+  - A `WorkoutProgram` can have many `Review`s.
+  - A `User` can have many `Review`s.
+
+- **Many-to-One**:
+  - A `UserQuestion` can refer to one `FAQ`, if answered.
+  - A `Review` refers to one `WorkoutProgram` and one `User`.
+
+- **One-to-One**:
+  - A `User` has one `UserProfile`, with personalised user information.
+
+
+# Technologies
 #### **Frontend:**
 - **HTML5**  
   HTML is used for structuring the content on the web, ensuring a clear and semantic layout for the pages.
@@ -250,7 +310,7 @@ To track steps and milestone in this project development, agile methodology was 
 
 #### **Design & Planning:**
 - **Balsamiq Wireframes**  
-  Balsamiq is used for wireframing and prototyping the app’s UI. It helps in visualizing the layout and user experience (UX) before development begins.
+  Balsamiq is used for wireframing and prototyping the app’s UI. It helps in visualising the layout and user experience (UX) before development begins.
 
 #### **Version Control:**
 - **Git & GitHub**  
@@ -346,6 +406,31 @@ The **SECRET_KEY** is crucial for the security of your Django app. Set it as an 
 ---
 
 ### **4. Deploying on Heroku**
+
+**Requirements and packages installed for app functionality and general deployment**
+
+```requirements.txt
+asgiref==3.8.1
+bleach==4.1.0
+boto3==1.35.57
+botocore==1.35.57
+crispy-bootstrap5==2024.10
+dj-database-url==2.3.0
+Django==5.1
+django-allauth==64.0.0
+django-countries==7.2.1
+django-crispy-forms==2.3
+django-js-asset==2.2.0
+django-storages==1.14.4
+django-summernote==0.8.20.0
+gunicorn==23.0.0
+jmespath==1.0.1
+pillow==11.0.0
+psycopg2==2.9.10
+s3transfer==0.10.3
+sqlparse==0.5.1
+stripe==11.1.1
+```
 
 <details>
 <summary><strong>Heroku Deployment</strong></summary>
@@ -541,193 +626,18 @@ To deploy **FitFlex** to Heroku, follow these steps:
 
 
 # Testing and Validation
+Testing was conducted using:
+* js hint
+* Flake8
+* w3c html validation
+* jig saw validation
+* Manual testing to for crossbrowser functionality was conducted on chrome, safari
 
-<details>
-  <summary>Test Cases for Features</summary>
-  <table>
-    <thead>
-      <tr>
-        <th>Feature</th>
-        <th>Expected Outcome</th>
-        <th>Pass/Fail</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Home Page - Hero Section</td>
-        <td>"Get Started" or "Find Your Routine" button directs user to the appropriate page based on login status.</td>
-        <td>Pass</td>
-      </tr>
-      <tr>
-        <td>Home Page - Contact Section</td>
-        <td>"Contact Us" button directs user to the contact page.</td>
-        <td>Pass</td>
-      </tr>
-      <tr>
-        <td>Header - Logo</td>
-        <td>Clicking on the logo takes the user back to the home page.</td>
-        <td>Pass</td>
-      </tr>
-      <tr>
-        <td>Header - Home Icon</td>
-        <td>Clicking the home icon takes the user to the home page.</td>
-        <td>Pass</td>
-      </tr>
-      <tr>
-        <td>Header - Shop Icon</td>
-        <td>Clicking the shop icon takes the user to the product page.</td>
-        <td>Pass</td>
-      </tr>
-      <tr>
-        <td>Header - Bag Icon</td>
-        <td>Clicking the bag icon takes the user to the checkout bag page.</td>
-        <td>Pass</td>
-      </tr>
-      <tr>
-        <td>Header - Search Bar</td>
-        <td>Clicking the search bar opens the search function (if implemented).</td>
-        <td>Pass</td>
-      </tr>
-      <tr>
-        <td>Sign In Button (Header)</td>
-        <td>Clicking "Sign In" button redirects the user to the login page.</td>
-        <td>Pass</td>
-      </tr>
-      <tr>
-        <td>Sign Up Button (Header)</td>
-        <td>Clicking "Sign Up" button redirects the user to the registration page.</td>
-        <td>Pass</td>
-      </tr>
-      <tr>
-        <td>Sign In Page - Login Form</td>
-        <td>User can enter valid credentials, and upon submission, they are redirected to their destination (home, profile, etc.).</td>
-        <td>Pass</td>
-      </tr>
-      <tr>
-        <td>Sign Up Page - Registration Form</td>
-        <td>User can register with valid details, and upon successful registration, they are redirected to their profile or home page.</td>
-        <td>Pass</td>
-      </tr>
-      <tr>
-        <td>Sign Up Page - Error Handling</td>
-        <td>If invalid or missing credentials are provided, the user receives an error message indicating what needs to be corrected.</td>
-        <td>Pass</td>
-      </tr>
-      <tr>
-        <td>Logout Button (Header)</td>
-        <td>Clicking the logout button redirects the user to the logout page.</td>
-        <td>Pass</td>
-      </tr>
-      <tr>
-        <td>Logout Page - Confirmation Prompt</td>
-        <td>A confirmation message appears asking the user if they are sure they want to log out.</td>
-        <td>Pass</td>
-      </tr>
-      <tr>
-        <td>Logout Page - Cancel Button</td>
-        <td>Clicking the "Cancel" button redirects the user back to the home page.</td>
-        <td>Pass</td>
-      </tr>
-      <tr>
-        <td>Logout Page - Sign Out Button</td>
-        <td>Clicking the "Sign Out" button successfully logs the user out and redirects them to the home page or login page.</td>
-        <td>Pass</td>
-      </tr>
-      <tr>
-        <td>Footer - Contact Us Button</td>
-        <td>Clicking the "Contact Us" link directs user to the contact page.</td>
-        <td>Pass</td>
-      </tr>
-      <tr>
-        <td>Footer - Newsletter Submit Button</td>
-        <td>Clicking the newsletter subscription button triggers a success toast and does not navigate away.</td>
-        <td>Pass</td>
-      </tr>
-      <tr>
-        <td>Footer - Social Media Icons</td>
-        <td>Clicking each social media icon navigates the user to the respective social media site (Facebook, Twitter, Instagram, etc.).</td>
-        <td>Pass</td>
-      </tr>
-      <tr>
-        <td>Footer - About Button</td>
-        <td>Clicking the "About" button in the footer correctly scrolls the user down to the About section on the home page.</td>
-        <td>Pass</td>
-      </tr>
-      <tr>
-        <td>FAQ Page</td>
-        <td>Clicking on FAQ questions allows users to view the full answer; admin can delete questions and users can ask a new question.</td>
-        <td>Pass</td>
-      </tr>
-      <tr>
-        <td>FAQ - Ask Question Button</td>
-        <td>Clicking the "Ask Question" button directs user to the "Ask a Question" page.</td>
-        <td>Pass</td>
-      </tr>
-      <tr>
-        <td>FAQ - Review Button</td>
-        <td>Admin can click to "Review" any submitted questions, directing them to the FAQ review page.</td>
-        <td>Pass</td>
-      </tr>
-      <tr>
-        <td>Workout Page - Filter</td>
-        <td>Clicking any of the filter options (category, difficulty, price) updates the product list to match the filter selection.</td>
-        <td>Pass</td>
-      </tr>
-      <tr>
-        <td>Workout Page - Product Card</td>
-        <td>Clicking the "Read More" button on a product card takes the user to the product detail page.</td>
-        <td>Pass</td>
-      </tr>
-      <tr>
-        <td>Product Detail Page - Add to Bag Button</td>
-        <td>Clicking "Add to Bag" button adds the product to the bag and displays a toast notification confirming the action.</td>
-        <td>Pass</td>
-      </tr>
-      <tr>
-        <td>Product Detail Page - Review Button</td>
-        <td>Clicking the "Add Review" button opens a review form.</td>
-        <td>Pass</td>
-      </tr>
-      <tr>
-        <td>Product Review Page - Edit/Delete Button</td>
-        <td>Clicking the "Edit" or "Delete" buttons on the review allows users to edit or delete their comments (admin can delete any review).</td>
-        <td>Pass</td>
-      </tr>
-      <tr>
-        <td>Bag Page - Remove Item Button</td>
-        <td>Clicking "Remove" next to an item in the bag triggers a toast confirming the removal and updates the bag contents.</td>
-        <td>Pass</td>
-      </tr>
-      <tr>
-        <td>Bag Page - Checkout Button</td>
-        <td>Clicking the "Checkout" button takes the user to the checkout page.</td>
-        <td>Pass</td>
-      </tr>
-      <tr>
-        <td>Checkout Page - Payment Submit Button</td>
-        <td>Clicking "Complete Order" completes the payment and redirects the user to the checkout success page.</td>
-        <td>Pass</td>
-      </tr>
-      <tr>
-        <td>Checkout Page - Cancel Checkout Button</td>
-        <td>Clicking "Cancel Checkout" prompts a confirmation and returns the user to the product page if confirmed.</td>
-        <td>Pass</td>
-      </tr>
-      <tr>
-        <td>Checkout Page - Continue Shopping Button</td>
-        <td>On the success page, clicking "Continue Shopping" redirects the user to the product page.</td>
-        <td>Pass</td>
-      </tr>
-      <tr>
-        <td>Checkout Bag - Remove Item Button</td>
-        <td>Clicking "Remove" next to an item in the bag triggers a toast confirming the removal and updates the bag contents.</td>
-        <td>Pass</td>
-      </tr>
-      <tr>
-        <td>Checkout Bag - Checkout Button</td>
-        <td>Clicking the "Checkout" button takes the user to the checkout page.</td>
-        <td>Pass</td>
-      </tr>
-    </tbody>
-  </table>
-</details>
+# Credit
+* Boostrap and fontawesome is used in styling the website
+* Codes from the BoutiqueAdo project of codeinstitute was used as template for developing this project.
+* Images were obtianed from freepik
+
+# Acknowledgement
+I woould truly like to thank my mentor, Gareth McGirr, for his patience and assistance as I developed this project.
+Great thanks to codeinstitute, the tutor team and student care for the accomodation and grace giving to me.

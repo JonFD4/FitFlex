@@ -9,8 +9,24 @@ One error that will require further investigation is:
 ![Product-detail validation](ReadmeImages/testingimages/w3chtml/w3-product-detail-page.png)
 Looking through the template for the product detail page, I could not find any code relating to the error above. It can be presumed that this is a django-related issue.
 
-## Light house testing**
-Lighthouse testing was conducted in devtools to test the performance of the website
+## Responsitivity testing
+**Cross browser testing**
+[site for cross browser testing](https://www.browserling.com/)
+The website was verified to work on safari, chrome, opera.
+![crossbrowser testing image](ReadmeImages/testingimages/Crossbrowsertesting.png)
+
+**AMIRESPONSIVE**
+Attempt to test responsitivity on amiresponsive was not possible. Upon further investigation in devtools:
+Response via console
+```
+chromewebdata/:1 Refused to display 'https://fitflexapp-e29fb3bd789f.herokuapp.com/' in a frame because it set 'X-Frame-Options' to 'deny'.Understand this error
+
+```
+This error is related to the X-Frame-Options HTTP header, which is used to control whether a browser is allowed to display a page inside a `iframe`, `embed`, or `object`element.
+
+**Light house testing**
+Lighthouse testing was conducted in devtools to test the performance of the website.
+The results of tested parts of the website can be seen [here](ReadmeImages/testingimages/lighthouse)
 
 ## Jigsaw CSS Validation
 [link](https://jigsaw.w3.org/css-validator/)
