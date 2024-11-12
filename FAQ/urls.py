@@ -19,5 +19,9 @@ urlpatterns = [
         views.delete_faq,
         name='delete_faq'
     ),
+    path(
+        'faq/edit/<int:faq_id>/',
+        views.edit_faq,
+        name='edit_faq'),
     path('faq/', views.faq_search, name='faq_search'),
 ]

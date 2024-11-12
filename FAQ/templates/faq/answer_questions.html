@@ -4,7 +4,7 @@
 <div class="container my-5">
     <h2>Answer Question</h2>
     <p><strong>Question:</strong> {{ question.question }}</p>
-    <form method="post">
+    <form method="post" action="{% url 'answer_question' question.id %}">
         {% csrf_token %}
         <div class="mb-3">
             <label for="answer" class="form-label">Answer</label>

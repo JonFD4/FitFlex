@@ -84,6 +84,23 @@ def delete_question(request, question_id):
     except Exception:
         messages.error(request, 'Error while deleting the question.')
         return HttpResponse(status=500)
+        
+
+@staff_member_required
+def edit_faq(request, faq_id):
+    faq = get_object_or_404(FAQ, id=faq_id)
+    if request.method == 'POST':
+        form = FAQForm(request.POST, instance=faq)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'FAQ updated successfully!')
+            return redirect('faq_search')
+        else:
+            messages.error(request, 'Error updating FAQ. Please check the input.')
+            return HttpResponseBadRequest("Invalid form data.")
+    else:
+        form = FAQForm(instance=faq)
+    return render(request, 'faq/edit_faq.html', {'form': form, 'faq': faq})
 
 
 @staff_member_required

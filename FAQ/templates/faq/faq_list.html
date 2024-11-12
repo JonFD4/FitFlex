@@ -25,12 +25,19 @@
                         </button>
                     </h2>
                     {% if user.is_superuser %}
-                        <a href="{% url 'delete_faq' faq.id %}" 
-                           class="btn btn-danger btn-sm ml-3" 
-                           style="font-size: 0.85rem; color: white; background-color: red;" 
-                           onclick="return confirm('Are you sure you want to delete this FAQ?');">
-                            Delete FAQ
-                        </a>
+                        <div>
+                            <a href="{% url 'edit_faq' faq.id %}" 
+                               class="btn btn-warning btn-sm mr-2" 
+                               style="font-size: 0.85rem;">
+                                Edit FAQ
+                            </a>
+                            <a href="{% url 'delete_faq' faq.id %}" 
+                               class="btn btn-danger btn-sm" 
+                               style="font-size: 0.85rem;" 
+                               onclick="return confirm('Are you sure you want to delete this FAQ?');">
+                                Delete FAQ
+                            </a>
+                        </div>
                     {% endif %}
                 </div>
                 
