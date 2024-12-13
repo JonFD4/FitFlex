@@ -12,11 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 import dj_database_url
 
-if os.path.exists("env.py"):
-    import env
-    DEBUG = True
-else:
-    DEBUG = False
+DEBUG = True
 
 
 from pathlib import Path
