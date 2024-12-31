@@ -9,7 +9,6 @@
 var stripePublicKey = $('#id_stripe_public_key').text().slice(1, -1);
 var clientSecret = $('#id_client_secret').text().slice(1, -1);
 var stripe = Stripe(stripePublicKey);
-console.log("Stripe object:", stripe);
 var elements = stripe.elements();
 var style = {
     base: {
