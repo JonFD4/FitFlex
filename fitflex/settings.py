@@ -33,6 +33,7 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     '8000-jonfd4-fitflex-mnth6whnvho.ws.codeinstitute-ide.net',
+    '8000-jonfd4-fitflex-3eu0acx2zx1.ws-eu117.gitpod.io',
     'fitflexapp-e29fb3bd789f.herokuapp.com',
     'https://cli-auth.heroku.com/auth/cli/browser/bcf0c241-4da2-483c-833a-91212cb1645f',
    ]
@@ -40,6 +41,7 @@ ALLOWED_HOSTS = [
 # domain to trusted origins
 CSRF_TRUSTED_ORIGINS = [
     'https://8000-jonfd4-fitflex-mnth6whnvho.ws.codeinstitute-ide.net',
+    'https://8000-jonfd4-fitflex-3eu0acx2zx1.ws-eu117.gitpod.io',
 ]
 # Application definition
 
@@ -127,7 +129,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
 ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_URL = '/accounts/login/'
@@ -233,4 +235,4 @@ else:
     EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
     EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASS')
     DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+    DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
