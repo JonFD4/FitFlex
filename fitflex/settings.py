@@ -36,6 +36,8 @@ ALLOWED_HOSTS = [
     '8000-jonfd4-fitflex-3eu0acx2zx1.ws-eu117.gitpod.io',
     'fitflexapp-e29fb3bd789f.herokuapp.com',
     'https://cli-auth.heroku.com/auth/cli/browser/bcf0c241-4da2-483c-833a-91212cb1645f',
+    'fitflex.onrender.com',
+    'https://fitflex.onrender.com'
    ]
 
 # domain to trusted origins
